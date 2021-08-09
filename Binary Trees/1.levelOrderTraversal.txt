@@ -1,0 +1,23 @@
+static ArrayList <Integer> levelOrder(Node node) 
+{
+        // Your code here
+        ArrayList<Integer> li = new ArrayList<>();
+        if(node==null){
+            return li;
+        }
+        Queue<Node> q = new LinkedList<>();
+        q.add(node);
+        while(!q.isEmpty()){
+            Node temp = q.peek();
+            q.poll();
+            li.add(temp.data);
+            if(temp.left!=null){
+                q.add(temp.left);
+            }
+            if(temp.right!=null){
+                q.add(temp.right);
+            }
+        }
+        return li;
+        
+}

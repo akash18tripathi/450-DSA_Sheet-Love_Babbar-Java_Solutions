@@ -1,0 +1,29 @@
+int height(Node node) 
+    {
+        // code here 
+        if(node==null){
+            return 0;
+        }
+        if(node.left==null && node.right==null){
+            return 1;
+        }
+        int leftHeight = height(node.left);
+        int rightHeight = height(node.right);
+        
+        return Math.max(leftHeight,rightHeight)+1;
+    }
+    
+    int diameter(Node root) {
+        // Your code here
+        if(root==null){
+            return 0;
+        }
+        int lh = height(root.left);
+        int rh = height(root.right);
+        
+        int ld = diameter(root.left);
+        int rd = diameter(root.right);
+        
+        return Math.max(lh+rh+1,Math.max(ld,rd));
+        
+    }

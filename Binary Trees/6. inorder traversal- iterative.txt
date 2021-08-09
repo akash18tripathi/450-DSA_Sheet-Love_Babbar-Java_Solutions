@@ -1,0 +1,20 @@
+public List<Integer> inorderTraversal(TreeNode root) {
+        ArrayList<Integer> li = new ArrayList<>();
+        if(root==null){
+            return li;
+        }
+        Stack<TreeNode> st = new Stack<>();
+        TreeNode node = root;
+        while(node !=null || !st.isEmpty()){
+            while(node!=null){
+                st.add(node);
+                node = node.left;
+            }
+            node = st.pop();
+            li.add(node.val);
+            node = node.right;
+        }
+        
+        return li;
+        
+    }
