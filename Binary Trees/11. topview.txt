@@ -1,0 +1,40 @@
+class QueueObj {
+        Node node;
+        int level;
+        QueueObj(Node n,int l){
+            this.node = n;
+            this.level=l;
+        }
+    } 
+
+
+static ArrayList<Integer> topView(Node root)
+    {
+        // add your code
+        ArrayList<Integer> li = new ArrayList<>();
+        if(root==null){
+            return li;
+        }
+        Map<Integer,Integer> mp = new HashMap<>();
+        Queue<QueueObj> q = new LinkedList<>();
+        q.add(new QueueObj(root,0));
+        while(!q.isEmpty()){
+            QueueObj qobj = q.peek();
+            q.poll();
+            if(!mp.containsKey(qobj.level)){
+                mp.put(qobj.level,qobj.node.data);
+            }
+            if(qobj.node.left!=null){
+                q.add(new QueueObj(qobj.node.left,qobj.level-1));
+            }
+            if(qobj.node.right!=null){
+                q.add(new QueueObj(qobj.node.right,qobj.level+1));
+            }
+        }
+        TreeMap<Integer,Integer> tm = new TreeMap<>(mp);
+        for(Integer k: tm.keySet()){
+            li.add(tm.get(k));
+        }
+        return li;
+        
+    }

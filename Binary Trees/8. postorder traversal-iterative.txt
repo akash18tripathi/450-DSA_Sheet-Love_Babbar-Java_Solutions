@@ -1,0 +1,27 @@
+public List<Integer> postorderTraversal(TreeNode root) {
+        ArrayList<Integer> li = new ArrayList<>();
+        if(root==null){
+            return li;
+        }
+        Stack<TreeNode> st = new Stack<>();
+        st.push(root);
+        Stack<Integer> st2 = new Stack<>();
+        while(!st.isEmpty()){
+            TreeNode temp = st.pop();
+            st2.push(temp.val);
+            if(temp.left!=null){
+                st.push(temp.left);
+            }
+            if(temp.right!=null){
+                st.push(temp.right);
+            }
+            
+            
+        }
+        
+        while(!st2.isEmpty()){
+            li.add(st2.pop());
+        }
+        return li;
+        
+    }

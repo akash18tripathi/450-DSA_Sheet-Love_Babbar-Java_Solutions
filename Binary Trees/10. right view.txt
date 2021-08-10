@@ -1,0 +1,28 @@
+ArrayList<Integer> rightView(Node node) {
+        //add code here.
+        ArrayList<Integer> li = new ArrayList<>();
+        if(node==null){
+            return li;
+        }
+        Queue<Node> q = new LinkedList<>();
+        q.add(node);
+        int size;
+        while(!q.isEmpty()){
+            
+            size = q.size();
+            for(int i=0;i<size;i++){
+                Node temp = q.peek();
+                q.poll();
+                if(i==size-1){
+                    li.add(temp.data);
+                }
+                if(temp.left!=null){
+                    q.add(temp.left);
+                }
+                if(temp.right!=null){
+                    q.add(temp.right);
+                }
+            }
+        }
+        return li;
+    }
