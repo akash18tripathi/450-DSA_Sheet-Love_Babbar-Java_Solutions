@@ -1,0 +1,41 @@
+//Function to store the zig zag order traversal of tree in a list.
+	ArrayList<Integer> zigZagTraversal(Node root)
+	{
+	    //Add your code here.
+	    ArrayList<Integer> li = new ArrayList<>();
+	    if(root==null){
+	        return li;
+	    }
+	    boolean leftToRight=true;
+	    Stack<Node> currLevel = new Stack<>();
+	    Stack<Node> nextLevel = new Stack<>();
+	    currLevel.push(root);
+	    while(!currLevel.isEmpty()){
+	        Node temp = currLevel.pop();
+	        li.add(temp.data);
+	        
+	        if(leftToRight){
+	            if(temp.left!=null){
+	                nextLevel.push(temp.left);
+	            }
+	            if(temp.right!=null){
+	                nextLevel.push(temp.right);
+	            }
+	        }else{
+	            if(temp.right!=null){
+	                nextLevel.push(temp.right);
+	            }
+	            if(temp.left!=null){
+	                nextLevel.push(temp.left);
+	            }
+	        }
+	        if(currLevel.isEmpty()){
+	            Stack<Node> aux = nextLevel;
+	            nextLevel = currLevel;
+	            currLevel = aux;
+	            leftToRight = !leftToRight;
+	        }
+	        
+	    }
+	    return li;
+	}
