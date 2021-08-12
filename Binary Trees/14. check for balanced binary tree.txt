@@ -1,0 +1,38 @@
+class HeightDp{
+    Node node;
+    int lh;
+    int rh;
+    HeightDp(Node n,int lh,int rh){
+        this.node = n;
+        this.lh = lh;
+        this.rh = rh;
+    }
+}
+
+
+int height(Node node,ArrayList<HeightDp> li){
+    if(node==null){
+        return 0;
+    }
+    if(node.left==null && node.right==null){
+        return 1;
+    }
+    int lst = height(node.left,li);
+    int rst = height(node.right,li);
+    HeightDp n = new HeightDp(node,lst,rst);
+    li.add(n);
+    return (Math.max(lst,rst)+1);
+    
+}
+boolean isBalanced(Node root)
+{
+// Your code here
+	ArrayList<HeightDp> li = new ArrayList<>();
+	height(root,li);
+	for(HeightDp n: li){
+	    if(Math.abs(n.lh-n.rh)>1){
+	        return false;
+	    }
+	}
+	return true;
+}

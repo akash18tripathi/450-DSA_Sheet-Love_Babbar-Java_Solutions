@@ -1,0 +1,26 @@
+public ArrayList<Integer> diagonalTraversal(TreeNode A) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        if(A==null){
+            return ans;
+        }
+        Deque<TreeNode> currQ = new ArrayDeque<TreeNode>();
+        Deque<TreeNode> nextQ = new ArrayDeque<TreeNode>();
+        currQ.add(A);
+        while(!(currQ.isEmpty() && nextQ.isEmpty())){
+
+            while(!currQ.isEmpty()){
+                TreeNode temp = currQ.poll();
+                ans.add(temp.val);
+                if(temp.left!=null){
+                    nextQ.add(temp.left);
+                }
+                if(temp.right!=null){
+                    currQ.addFirst(temp.right);
+                }
+            }
+            Deque<TreeNode> t = currQ;
+            currQ = nextQ;
+            nextQ = t;
+        }
+        return ans;
+    }

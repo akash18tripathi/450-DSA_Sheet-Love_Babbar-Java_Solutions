@@ -1,0 +1,58 @@
+void printLeftBoundary(Node node,ArrayList<Integer> li){
+    if(node==null){
+        return;
+    }
+    if(node.left!=null){
+        li.add(node.data);
+        printLeftBoundary(node.left,li);
+    }else{
+        if(node.right!=null){
+            li.add(node.data);
+            printLeftBoundary(node.right,li);
+        }
+    }
+    return;
+}
+void printRightBoundary(Node node,ArrayList<Integer> li){
+    if(node==null){
+        return;
+    }
+    if(node.right!=null){
+        printRightBoundary(node.right,li);
+        li.add(node.data);
+    }
+    else{
+        if(node.left!=null){
+            printRightBoundary(node.left,li);
+            li.add(node.data);
+        }
+    }
+    return;
+}
+void printLeaves(Node node,ArrayList<Integer> li){
+    if(node==null){
+        return;
+    }
+    printLeaves(node.left,li);
+    if(node.left==null && node.right==null){
+        li.add(node.data);
+    }
+    printLeaves(node.right,li);
+    return;
+}
+
+//Main Function
+ArrayList <Integer> printBoundary(Node node)
+{
+   ArrayList<Integer> li = new ArrayList<>();
+   if(node==null){
+       return li;
+   }
+   li.add(node.data);
+   printLeftBoundary(node.left,li);
+   printLeaves(node.left,li);
+   printLeaves(node.right,li);
+   printRightBoundary(node.right,li);
+   
+   return li;
+}
