@@ -1,0 +1,20 @@
+public void toSumTree(Node root){
+    
+    toSumTreeUtil(root);
+     
+}
+public int toSumTreeUtil(Node root){
+     if(root==null){
+         return 0;
+     }
+     if(root.left==null && root.right==null ){
+         int temp = root.data;
+         root.data=0;
+         return temp;
+     }
+     int left = toSumTreeUtil(root.left);
+     int right = toSumTreeUtil(root.right);
+     int temp = root.data;
+     root.data = left+right;
+     return temp+root.data;
+}

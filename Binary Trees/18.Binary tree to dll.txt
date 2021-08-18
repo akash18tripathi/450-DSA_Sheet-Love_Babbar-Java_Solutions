@@ -1,0 +1,31 @@
+void inOrder(Node node,ArrayList<Integer> li){
+    if(node==null){
+        return;
+    }
+    inOrder(node.left,li);
+    li.add(node.data);
+    inOrder(node.right,li);
+    return;
+}
+Node bToDLL(Node root)
+{
+//  Your code here
+    ArrayList<Integer> li = new ArrayList<>();
+    inOrder(root,li);
+    if(li.size()==0){
+        return null;
+    }
+    Node head = new Node(li.get(0));
+    head.left=null;
+    head.right=null;
+    int size = li.size();
+    Node temp = head;
+    for(int i=1;i<size;i++){
+        Node node = new Node(li.get(i));
+        temp.right = node;
+        node.left = temp;
+        node.right=null;
+        temp = node;
+    }
+    return head;
+}
