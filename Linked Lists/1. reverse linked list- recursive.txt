@@ -1,0 +1,17 @@
+public ListNode reverseList(ListNode head) {
+    if(head==null){
+        return null;
+    }
+    head = reverseListUtil(null,head);
+    return head;
+
+}
+public ListNode reverseListUtil(ListNode prev,ListNode curr){
+     if(curr.next==null){
+         curr.next = prev;
+         return curr;
+     }
+    ListNode h = reverseListUtil(curr,curr.next);
+    curr.next = prev;
+    return h;
+}
