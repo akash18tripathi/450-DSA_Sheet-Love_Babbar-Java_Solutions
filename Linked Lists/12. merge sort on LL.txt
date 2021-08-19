@@ -1,0 +1,49 @@
+static Node findMiddle(Node head){
+    
+    if(head==null){
+        return null;
+    }
+    Node slow=head,fast=head;
+    
+    while(fast.next !=null && fast.next.next!=null){
+        slow=slow.next;
+        fast=fast.next.next;
+    }
+    return slow;
+}
+static Node sortedList(Node left,Node right){
+    Node result = null;
+    if(left==null){
+        return right;
+    }
+    if(right==null){
+        return left;
+    }
+    if(left.data<=right.data){
+        result = left;
+        result.next = sortedList(left.next,right);
+    }else{
+        result = right;
+        result.next = sortedList(left,right.next);
+    }
+    
+    return result;
+}
+static Node mergeSort(Node head)
+{
+    // add your code here
+    if(head==null || head.next==null){
+        return head;
+    }
+    
+    Node middle = findMiddle(head);
+    Node nextOfMiddle = middle.next;
+    middle.next=null;
+    
+    Node left = mergeSort(head);
+    Node right = mergeSort(nextOfMiddle);
+    
+    Node ans = sortedList(left,right);
+    
+    return ans;
+}

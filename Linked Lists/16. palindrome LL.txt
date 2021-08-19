@@ -1,0 +1,46 @@
+Node findMiddle(Node head){
+    if(head==null){
+        return null;
+    }
+    Node slow=head,fast=head;
+    while(fast.next!=null && fast.next.next!=null){
+        slow=slow.next;
+        fast=fast.next.next;
+    }
+    return slow;
+}
+Node reverse(Node head){
+    if(head==null){
+        return null;
+    }
+    Node prev=null,curr=head,next=null;
+    
+    while(curr!=null){
+        next = curr.next;
+        curr.next=prev;
+        prev=curr;
+        curr=next;
+    }
+    head=prev;
+    return head;
+}
+boolean isPalindrome(Node head) 
+{
+    //Your code here
+    if(head==null || head.next==null){
+        return true;
+    }
+    Node middle = findMiddle(head);
+    Node sh = middle.next;
+    middle.next=null;
+    sh = reverse(sh);
+    Node fh=head;
+    while(sh!=null&& fh!=null){
+        if(sh.data!=fh.data){
+            return false;
+        }
+        sh=sh.next;
+        fh=fh.next;
+    }
+    return true;
+}

@@ -1,0 +1,43 @@
+int intersectPoint(Node head1, Node head2)
+	{
+         // code here
+         int c1=0,c2=0;
+         Node h1 = head1;
+         Node h2 = head2;
+         
+         while(h1!=null){
+             c1++;
+             h1 = h1.next;
+         }
+         while(h2!=null){
+             c2++;
+             h2 = h2.next;
+         }
+         boolean c1IsBigger = false;
+         if(c1>c2){
+             c1IsBigger = true;
+         }
+         int d = Math.abs(c1-c2);
+         h1=head1;
+         h2=head2;
+         if(c1IsBigger){
+             while(d>0){
+                 h1=h1.next;
+                 d--;
+             }
+         }else{
+             while(d>0){
+                 h2=h2.next;
+                 d--;
+             }
+         }
+         
+         while(h1!=null && h2!=null){
+             if(h1==h2){
+                 return h1.data;
+             }
+             h1 = h1.next;
+             h2 = h2.next;
+         }
+         return -1;
+	}

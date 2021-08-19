@@ -1,0 +1,21 @@
+void splitList(circular_LinkedList list)
+{
+    Node head = list.head;
+    Node fast = head,slow=head;
+    
+    while(fast.next!=head && fast.next.next!=head){
+        slow=slow.next;
+        fast=fast.next.next;
+    }
+    
+    Node h1=head,h2=slow.next;
+    if(fast.next==head){
+        fast.next=h2;
+    }else{
+        fast.next.next=h2;
+    }
+    slow.next=h1;
+    list.head1 = h1;
+    list.head2 = h2;
+    return;
+}
