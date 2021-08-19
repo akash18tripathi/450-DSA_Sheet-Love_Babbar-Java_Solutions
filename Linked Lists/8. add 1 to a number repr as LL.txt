@@ -1,0 +1,52 @@
+public static Node reverse(Node head){
+    if(head==null){
+        return null;
+    }
+    Node curr=head;
+    Node prev,next;
+    prev=null;
+    next=null;
+    while(curr.next!=null){
+        next = curr.next;
+        curr.next=prev;
+        prev=curr;
+        curr = next;
+    }
+    curr.next = prev;
+    head = curr;
+    return head;
+    
+}
+public static Node addOne(Node head) 
+{ 
+    //code here.
+    if(head==null){
+        return null;
+    }
+    
+    head = reverse(head);
+    boolean carry = true;
+    Node curr = head,prev=null;
+    while(curr!=null){
+        if(carry){
+            if(curr.data==9){
+                carry=true;
+                curr.data=0;
+            }else{
+                curr.data+=1;
+                carry=false;
+            }
+        }else{
+            break;
+        }
+        prev=curr;
+        curr=curr.next;
+    }
+    if(carry){
+        Node temp = new Node(1);
+        prev.next = temp;
+        temp.next=null;
+    }
+     head = reverse(head);
+    return head;
+}

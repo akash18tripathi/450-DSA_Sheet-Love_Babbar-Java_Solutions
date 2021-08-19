@@ -1,0 +1,23 @@
+Node removeDuplicates(Node head)
+{
+// Your code here
+    if(head==null){
+        return null;
+    }
+    Node curr,next;
+    curr = head;
+    next=curr.next;
+    while(next!=null){
+        
+        if(next.data==curr.data){
+            curr.next = next.next;
+            next = next.next;
+        }else{
+            curr = next;
+            next = next.next;
+        }
+        
+    }
+    return head;
+
+}

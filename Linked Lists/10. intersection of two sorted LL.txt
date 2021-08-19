@@ -1,0 +1,32 @@
+public static Node findIntersection(Node head1, Node head2)
+{
+    // code here.
+    Node p1=head1,p2=head2;
+    Node head,curr;
+    curr = new Node(-1);
+    head=curr;
+    while((p1!=null && p2!=null)){
+        if(p1.data==p2.data){
+            Node temp = new Node(p1.data);
+            if(curr.data==-1){
+                curr.data = temp.data;
+            }else{
+                curr.next = temp;
+                curr = temp;
+            }
+            p1 = p1.next;
+            p2 = p2.next;
+        }else{
+            if(p1.data<p2.data){
+                p1 = p1.next;
+            }else{
+                p2 = p2.next;
+            }
+        }
+    }
+    if(head.data==-1){
+        return null;
+    }
+    return head;
+
+}

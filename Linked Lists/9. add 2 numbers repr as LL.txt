@@ -1,0 +1,131 @@
+public static Node reverse(Node head){
+    if(head==null){
+        return null;
+    }
+    Node prev=null,curr=head,next=null;
+    
+    while(curr!=null){
+        next=curr.next;
+        curr.next=prev;
+        prev=curr;
+        curr=next;
+    }
+    head = prev;
+    return head;
+}
+static Node addTwoLists(Node first, Node second){
+    Node head = new Node(-1);
+    first = reverse(first);
+    second = reverse(second);
+    Node fp=first,sp=second;
+    boolean carry=false;
+    Node temp;
+    Node curr=head;
+    while((fp!=null && sp!=null)){
+        if(fp.data+sp.data<10){
+            if(!carry){
+                temp = new Node(fp.data+sp.data);
+                if(curr.data==-1){
+                    curr.data=temp.data;
+                }else{
+                    curr.next = temp;
+                    curr = temp;
+                }
+            }else{
+                if((fp.data+sp.data+1)>=10){
+                    carry = true;
+                    temp = new Node((fp.data+sp.data+1)%10);
+                    if(curr.data==-1){
+                        curr.data=temp.data;
+                    }else{
+                        curr.next = temp;
+                        curr = temp;
+                    }
+                }else{
+                    carry=false;
+                    temp = new Node(fp.data+sp.data+1);
+                    if(curr.data==-1){
+                        curr.data=temp.data;
+                    }else{
+                        curr.next = temp;
+                        curr = temp;
+                    }
+                }
+            }
+            
+        }else{
+            if(!carry){
+                carry=true;
+                temp = new Node((fp.data+sp.data)%10);
+                if(curr.data==-1){
+                    curr.data=temp.data;
+                }else{
+                    curr.next = temp;
+                    curr = temp;
+                }
+            }else{
+                temp = new Node((fp.data+sp.data+1)%10);
+                if(curr.data==-1){
+                    curr.data=temp.data;
+                }else{
+                    curr.next = temp;
+                    curr = temp;
+                }
+                carry=true;
+                
+            }
+            
+            
+        }
+        fp = fp.next;
+        sp = sp.next;
+    }
+    while(fp!=null){
+        if(carry){
+            if((fp.data+1)>=10){
+                temp = new Node((fp.data+1)%10);
+                curr.next = temp;
+                curr = temp;
+            }else{
+                carry=false;
+                temp = new Node((fp.data+1));
+                curr.next = temp;
+                curr = temp;
+            }
+            
+        }else{
+            temp = new Node((fp.data));
+            curr.next = temp;
+            curr = temp;
+            carry = false;
+        }
+        fp = fp.next;
+    }
+    while(sp!=null){
+        if(carry){
+            if((sp.data+1)>=10){
+                temp = new Node((sp.data+1)%10);
+                curr.next = temp;
+                curr = temp;
+            }else{
+                carry=false;
+                temp = new Node((sp.data+1));
+                curr.next = temp;
+                curr = temp;
+            }
+            
+        }else{
+            temp = new Node((sp.data));
+            curr.next = temp;
+            curr = temp;
+            carry = false;
+        }
+        sp=sp.next;
+    }
+    if(carry){
+        temp =new Node(1);
+        curr.next = temp;
+    }
+    head = reverse(head);
+    return head;
+}
