@@ -1,0 +1,15 @@
+static int nCr(int n, int r)
+{
+    // code here
+    int[] dp = new int[r+1];
+    Arrays.fill(dp,0);
+    dp[0]=1;
+    for(int j=1;j<=n;j++){
+        for(int i=Math.min(j,r);i>0;i--){
+            dp[i]=(dp[i-1]+dp[i])%1000000007;
+        }
+        
+    }
+    
+    return dp[r]%1000000007;
+}

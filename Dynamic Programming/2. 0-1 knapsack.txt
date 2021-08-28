@@ -1,0 +1,23 @@
+static int knapSack(int W, int wt[], int val[], int n) 
+{ 
+     // your code here 
+     int[][] dp = new int[n+1][W+1];
+     for(int i=0;i<=n;i++){
+         Arrays.fill(dp[i],-1);
+     }
+     int ans = util(W,wt,val,n-1,dp);
+     return ans;
+} 
+static int util(int w,int wt[],int val[],int n,int[][] dp){
+    if(n==-1 || w<=0){
+        return 0;
+    }
+    if(dp[n][w]!=-1){
+        return dp[n][w];
+    }
+    if(wt[n]>w){
+        return dp[n][w]=util(w,wt,val,n-1,dp);
+    }
+    dp[n][w] = Math.max(val[n]+util(w-wt[n],wt,val,n-1,dp),util(w,wt,val,n-1,dp));
+    return dp[n][w];
+}
