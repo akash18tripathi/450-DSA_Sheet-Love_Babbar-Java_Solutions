@@ -1,0 +1,26 @@
+ public static void sort012(int a[], int n)
+    {
+        // code here 
+        int low=0,i=0,high=n-1;
+        while(i<=high){
+            if(a[i]==0){
+                swap(a,low,i);
+                low++;
+                i++;
+            }else{
+                if(a[i]==2){
+                    swap(a,i,high);
+                    high--;
+                }else{
+                    i++;
+                }
+            }
+        }
+        
+    }
+    
+    public static void swap(int[] a,int i,int j){
+        int temp = a[i];
+        a[i]=a[j];
+        a[j] = temp;
+    }

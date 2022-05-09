@@ -1,0 +1,19 @@
+public void segregateElements(int arr[], int n)
+    {
+        // Your code goes here
+        int[] temp = new int[n];
+        int high=n-1;
+        for(int i=n-1;i>=0;i--){
+            if(arr[i]<0){
+                temp[high--]=arr[i];
+            }
+        }
+        for(int i=n-1;i>=0;i--){
+            if(arr[i]>=0){
+                temp[high--]=arr[i];
+            }
+        }
+        for(int i=0;i<n;i++){
+            arr[i] = temp[i];
+        }
+    }

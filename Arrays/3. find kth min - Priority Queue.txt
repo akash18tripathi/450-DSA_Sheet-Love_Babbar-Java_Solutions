@@ -1,0 +1,13 @@
+public static int kthSmallest(int[] arr, int l, int r, int k) 
+    { 
+        //Your code here
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for(int i=l;i<=r;i++){
+            pq.add(arr[i]);
+        }
+        for(int i=0;i<k-1;i++){
+            pq.remove();
+        }
+        int min = pq.remove();
+        return min;
+    } 

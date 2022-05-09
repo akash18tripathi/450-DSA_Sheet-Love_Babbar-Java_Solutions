@@ -1,0 +1,10 @@
+public int maxSubArray(int[] nums) {
+        int local=nums[0],global=nums[0];
+        for(int i=1;i<nums.length;i++){
+            local = Math.max(nums[i],local+nums[i]);
+            if(local>global){
+                global = local;
+            }
+        }
+        return global;
+    }

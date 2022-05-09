@@ -1,0 +1,14 @@
+    public static String reverseWord(String str)
+    {
+        int n = str.length();
+        char[] arr = str.toCharArray();
+        int i=0,j=n-1;
+        while(i<j){
+            char c = arr[i];
+            arr[i] = arr[j];
+            arr[j] = c;
+            i++;
+            j--;
+        }
+        return String.valueOf(arr);
+    }

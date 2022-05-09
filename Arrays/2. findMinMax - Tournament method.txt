@@ -1,0 +1,42 @@
+static pair getMinMax(long a[], long n)  
+    {
+        //Write your code here
+        return getMinMaxUtil(a,0,a.length-1);
+        
+    }
+    
+    static pair getMinMaxUtil(long[] a,int low, int high){
+        if(low>high){
+            return new pair(Long.MAX_VALUE,Long.MIN_VALUE);
+        }
+        pair p = new pair(Long.MAX_VALUE,Long.MIN_VALUE);
+        if(low==high){
+            p.first = a[low];
+            p.second = a[low];
+            return p;
+        }
+        if(low+1==high){
+            if(a[low]>a[high]){
+                p.first = a[high];
+                p.second = a[low];
+            }else{
+                p.first = a[low];
+                p.second = a[high];
+            }
+            return p;
+        }
+        int mid = (low+high)/2;
+        pair mml = getMinMaxUtil(a,low,mid);
+        pair mmr = getMinMaxUtil(a, mid+1,high);
+        if(mml.first<mmr.first){
+            p.first = mml.first;
+        }else{
+            p.first = mmr.first;
+        }
+        if(mml.second<mmr.second){
+            p.second = mmr.second;
+        }else{
+            p.second = mml.second;
+        }
+        return p;
+    }
