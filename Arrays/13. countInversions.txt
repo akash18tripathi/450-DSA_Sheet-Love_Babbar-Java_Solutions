@@ -1,0 +1,36 @@
+static long inversionCount(long arr[], long N)
+    {
+        // Your Code Here
+        return mergeSort(arr,0,arr.length-1);
+    }
+    static long merge(long[] arr,int l,int m,int h){
+        long[] left = Arrays.copyOfRange(arr,l,m+1);
+        long[] right = Arrays.copyOfRange(arr,m+1,h+1);
+        int i=0,j=0,k=l;
+        long count=0;
+        while(i<left.length && j<right.length){
+            if(left[i]>right[j]){
+                count += m+1-(l+i);
+                arr[k++]=right[j++];
+            }else{
+                arr[k++]=left[i++];
+            }
+        }
+        while(i<left.length){
+            arr[k++] = left[i++];
+        }
+        while(j<right.length){
+            arr[k++] = right[j++];
+        }
+        return count;
+    }
+    static long mergeSort(long[] arr,int start,int end){
+        long count=0;
+        if(start<end){
+            int mid = (start+end)/2;
+            count += mergeSort(arr,start,mid);
+            count += mergeSort(arr,mid+1,end);
+            count += merge(arr,start,mid,end);
+        }
+        return count;
+    }

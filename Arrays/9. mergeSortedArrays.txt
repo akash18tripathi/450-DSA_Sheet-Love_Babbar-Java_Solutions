@@ -1,0 +1,21 @@
+    public void swap(int[] arr1,int[] arr2,int i, int j){
+        int temp = arr1[i];
+        arr1[i] = arr2[j];
+        arr2[j] = temp;
+    }
+
+    public void merge(int arr1[], int arr2[], int n, int m) {
+        // code here
+        int i=0,j=0,k=n-1;
+        while(i<=k && j<m){
+            if(arr1[i]<arr2[j]){
+                i++;
+            }else{
+                swap(arr1,arr2,k,j);
+                j++;
+                k--;
+            }
+        }
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+    }
