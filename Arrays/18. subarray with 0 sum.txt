@@ -1,0 +1,20 @@
+    static boolean findsum(int arr[],int n)
+    {
+        //Your code here
+        int sum = 0;
+        Set<Integer> st = new HashSet<>();
+        for(int i=0;i<n;i++){
+            if(arr[i]==0){
+                return true;
+            }
+            sum+=arr[i];
+            if(st.contains(sum)){
+                return true;
+            }
+            st.add(sum);
+        }
+        if(st.contains(0)){
+            return true;
+        }
+        return false;
+    }

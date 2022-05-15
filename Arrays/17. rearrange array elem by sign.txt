@@ -1,0 +1,17 @@
+public int[] rearrangeArray(int[] nums) {
+        ArrayList<Integer> positives = new ArrayList<>();
+        ArrayList<Integer> negatives = new ArrayList<>();
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]>0){
+                positives.add(nums[i]);
+            }else{
+                negatives.add(nums[i]);
+            }
+        }
+        int i=0,j=0;
+        for(int k=0;k<nums.length;k++){
+            nums[k] = k%2==0? positives.get(i++) : negatives.get(j++);
+        }
+
+        return nums;
+    }

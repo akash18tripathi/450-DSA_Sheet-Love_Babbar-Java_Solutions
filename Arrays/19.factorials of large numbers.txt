@@ -1,0 +1,31 @@
+    static ArrayList<Integer> factorial(int N){
+        //code here
+        int[] arr = new int[100000];
+        Arrays.fill(arr,0);
+        int size=1;
+        arr[0]=1;
+        for(int x=2;x<=N;x++){
+            size = multiply(arr,x,size);
+        }
+        ArrayList<Integer> li = new ArrayList<>();
+        for(int i=size-1;i>=0;i--){
+            li.add(arr[i]);
+        }
+        return li;
+    }
+    static int multiply(int[] arr,int x,int size){
+        int count =0,carry=0,num=1;
+        for(int i=0;i<size;i++){
+            num = arr[i]*x +carry;
+            arr[i] = num%10;
+            carry = num/10;
+            count++;
+        }
+        while(carry!=0){
+            arr[count] = carry%10;
+            carry=carry/10;
+            count++;
+        }
+        return count;
+        
+    }

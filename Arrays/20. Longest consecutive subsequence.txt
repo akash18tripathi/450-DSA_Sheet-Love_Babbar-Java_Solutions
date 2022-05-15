@@ -1,0 +1,18 @@
+	static int findLongestConseqSubseq(int arr[], int N)
+	{
+	   Set<Integer> st = new HashSet<>();
+	   for(int i=0;i<N;i++){
+	       st.add(arr[i]);
+	   }
+	   int temp,answer=0;
+	   for(int i=0;i<N;i++){
+	       if(!st.contains(arr[i]-1)){
+	          temp = arr[i];
+	          while(st.contains(temp)){
+	              temp++;
+	          }
+	          answer = Math.max(answer,temp-arr[i]);
+	       }
+	   }
+	   return answer;
+	}
