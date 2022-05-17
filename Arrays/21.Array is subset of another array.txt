@@ -1,0 +1,18 @@
+public String isSubset( long a1[], long a2[], long n, long m) {
+        HashMap<Long,Long> map = new HashMap<>();
+        for(long a : a1)
+            map.put(a,map.getOrDefault(a,(long)0)+1);
+        
+        for(long b : a2)
+        {
+            if(map.containsKey(b))
+            {
+                map.put(b,map.get(b)-1);
+                if(map.get(b)==0)
+                map.remove(b);
+            }
+            else
+            return "No";
+        }
+        return "Yes";
+    }

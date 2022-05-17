@@ -1,0 +1,17 @@
+public static int smallestSubWithSum(int a[], int n, int x) {
+        // Your code goes here 
+        int start=0,end=0,minLen=n+1,curSum=0;
+        
+        while(end<n){
+            while(curSum<=x && end<n){
+                curSum += a[end++];
+            }
+            while(start<n && curSum>x){
+                if(end-start<minLen){
+                    minLen=end-start;
+                }
+                curSum -= a[start++];
+            }
+        }
+        return minLen;
+    }
