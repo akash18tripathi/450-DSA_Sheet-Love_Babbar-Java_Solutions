@@ -1,0 +1,25 @@
+public static int minSwap (int arr[], int n, int k) {
+        //Complete the function
+        int badValues=0,goodValues=0;
+        for(int i=0;i<n;i++){
+            if(arr[i]<=k){
+                goodValues++;
+            }
+        }
+        for(int i=0;i<goodValues;i++){
+            if(arr[i]>k){
+                badValues++;
+            }
+        }
+        int ans = badValues;
+        for(int i=0,j=goodValues;j<n;i++,j++){
+            if(arr[i]>k){
+                badValues--;
+            }
+            if(arr[j]>k){
+                badValues++;
+            }
+            ans = Math.min(ans,badValues);
+        }
+        return ans;
+    }

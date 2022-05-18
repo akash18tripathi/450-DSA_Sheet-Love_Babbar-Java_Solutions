@@ -1,0 +1,22 @@
+ public void swap(int[] arr,int i,int j){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    public void threeWayPartition(int array[], int a, int b)
+    {
+        // code here
+        int start=0,end=array.length-1,i=0;
+        while(i<=end){
+            if(array[i]<a){
+                swap(array,i++,start++);
+            }else{
+                if(array[i]>b){
+                    swap(array,i,end--);
+                }else{
+                    i++;
+                }
+            }
+        }
+        
+    }
