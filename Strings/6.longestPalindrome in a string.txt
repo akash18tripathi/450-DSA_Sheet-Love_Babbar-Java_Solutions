@@ -1,0 +1,53 @@
+    static String answer;
+    static int maxLen;
+    static String longestPalin(String s){
+        // code here
+        int n = s.length();
+        answer="";
+        maxLen=0;
+        for(int i=0;i<n;i++){
+            isPalindrome_1(s,i);
+            isPalindrome_2(s,i);
+        }
+        return answer;
+    }
+    static void isPalindrome_1(String s,int n){
+        int i=n,j=n,count=-1;
+        while(i>=0 && j<s.length()){
+            if(s.charAt(i)!=s.charAt(j)){
+                if(count>maxLen){
+                    answer = s.substring(i+1,j);
+                    maxLen=count;
+                }
+                return;
+            }
+            count+=2;
+            i--;
+            j++;
+        }
+        if(count>maxLen){
+            answer = s.substring(i+1,j);
+            maxLen=count;
+        }
+        return;
+    }
+    static void isPalindrome_2(String s,int n){
+        int i=n,j=n+1,count=0;
+        while(i>=0 && j<s.length()){
+            if(s.charAt(i)!=s.charAt(j)){
+                if(count>maxLen){
+                    answer = s.substring(i+1,j);
+                    maxLen=count;
+                }
+                return;
+            }
+            count+=2;
+            i--;
+            j++;
+        }
+        if(count>maxLen){
+            answer = s.substring(i+1,j);
+            maxLen=count;
+        }
+        return;   
+    }

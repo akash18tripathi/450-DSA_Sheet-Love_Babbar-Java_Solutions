@@ -1,0 +1,23 @@
+    public boolean rotateString(String s, String goal) {
+        if(s.length()!=goal.length()){
+            return false;
+        }
+        String temp = s.concat(s);
+        boolean flag=false;
+        int j,k;
+        for(int i=0;i<temp.length();i++){
+            if(temp.charAt(i)==goal.charAt(0)){
+                k=i;
+                j=0;
+                while(j<goal.length() && k< temp.length() && temp.charAt(k)==goal.charAt(j)){
+                    k++;
+                    j++;
+                }
+                if(j==goal.length()){
+                    flag=true;
+                    break;
+                }
+            }
+        }
+        return flag;
+    }
