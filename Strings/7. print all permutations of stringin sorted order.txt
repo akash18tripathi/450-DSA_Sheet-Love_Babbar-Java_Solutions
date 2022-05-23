@@ -1,0 +1,36 @@
+Set<String> st;
+    public String sortedString(String s){
+        char[] arr = s.toCharArray();
+        Arrays.sort(arr);
+        return new String(arr);
+    }
+    public List<String> find_permutation(String S) {
+        // Code here
+        String s = sortedString(S);
+        st = new HashSet<>();
+        utility(s,0,s.length()-1);
+        List<String> li = new ArrayList<>(st);
+        Collections.sort(li);
+        return li;
+    }
+    
+    public void utility(String s, int index,int n){
+        if(n==index){
+            st.add(s);
+            return;
+        }
+        
+        for(int i=index;i<s.length();i++){
+            s = swapString(s,i,index);
+            utility(s,index+1,n);
+            s = swapString(s,i,index);
+        }
+    }
+    public String swapString(String s,int i,int j){
+        char[] temp = s.toCharArray();
+        char t = temp[i];
+        temp[i] = temp[j];
+        temp[j] = t;
+        
+        return String.valueOf(temp);
+    }

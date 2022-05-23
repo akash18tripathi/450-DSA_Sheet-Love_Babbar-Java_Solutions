@@ -1,0 +1,53 @@
+static boolean ispar(String x)
+    {
+        // add your code here
+        int n = x.length();
+        Stack<Character>st = new Stack<>();
+        char c;
+        for(int i=0;i<n;i++){
+            c = x.charAt(i);
+            switch(c){
+                case '{':{
+                    st.push('{');
+                    break;
+                }
+                case '(':{
+                    st.push('(');
+                    break;
+                }
+                case '[':{
+                    st.push('[');
+                    break;
+                }
+                case '}':{
+                    if(!st.isEmpty() && st.peek()=='{'){
+                        st.pop();
+                        break;
+                    }else{
+                        return false;
+                    }
+                }
+                case ')':{
+                    if(!st.isEmpty() && st.peek()=='('){
+                        st.pop();
+                        break;
+                    }else{
+                        return false;
+                    }
+                }
+                case ']':{
+                    if(!st.isEmpty() && st.peek()=='['){
+                        st.pop();
+                        break;
+                    }else{
+                        return false;
+                    }
+                }
+                
+            }
+        }
+        if(!st.isEmpty()){
+            return false;
+        }
+        return true;
+    }
