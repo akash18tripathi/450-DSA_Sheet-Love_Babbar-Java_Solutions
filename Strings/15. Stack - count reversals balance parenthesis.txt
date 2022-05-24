@@ -1,0 +1,30 @@
+   int countRev (String s)
+    {
+        // your code here    
+        int n = s.length();
+        if(n%2!=0){
+            return -1;
+        }
+        Stack<Character> st = new Stack<>();
+        for(char c: s.toCharArray()){
+            if(!st.isEmpty() && c=='}'){
+                if(st.peek()=='{'){
+                    st.pop();
+                }else{
+                    st.push(c);
+                }
+            }else{
+                st.push(c);
+            }
+        }
+        int closing=0,opening=0;
+        while(!st.isEmpty()){
+            if(st.peek()=='{'){
+                opening++;
+            }else{
+                closing++;
+            }
+            st.pop();
+        }
+        return opening/2+closing/2 + opening%2+closing%2;
+    }

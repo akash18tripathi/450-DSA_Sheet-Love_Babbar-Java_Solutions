@@ -1,0 +1,21 @@
+    public int minFlips(String S) {
+        // Code here
+        int n = S.length();
+        int evenZero=0,oddZero=0;
+        for(int i=0;i<n;i++){
+            if(i%2==0){
+                if(S.charAt(i)!='0'){
+                    evenZero++;
+                }else{
+                    oddZero++;
+                }
+            }else{
+                if(S.charAt(i)!='1'){
+                    evenZero++;
+                }else{
+                    oddZero++;
+                }
+            }
+        }
+        return Math.min(evenZero,oddZero);
+    }

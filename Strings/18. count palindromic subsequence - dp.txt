@@ -1,0 +1,39 @@
+long[][] dp;
+    long countPS(String str)
+    {
+        // Your code here
+        if(str.length()==0){
+            return 0;
+        }
+        int n = str.length();
+        dp = new long[n][n];
+        for(int i=0;i<n;i++){
+            Arrays.fill(dp[i],-1);
+        }
+        return util(str,0,str.length()-1)%1000000007;
+        
+    }
+    
+    long util(String s,int i,int j){
+        if(i==j){
+            dp[i][j]=1;
+            return 1;
+        }
+        if(i>j){
+            dp[i][j]=0;
+            return 0;
+        }
+        if(dp[i][j]!=-1){
+            return dp[i][j]%1000000007;
+        }
+        if(s.charAt(i)==s.charAt(j)){
+            dp[i][j]=(1+ util(s,i,j-1)%1000000007 + util(s,i+1,j)%1000000007)%1000000007;
+            
+        }else{
+            dp[i][j] = (util(s,i+1,j)+util(s,i,j-1)-util(s,i+1,j-1))%1000000007;
+            if(dp[i][j]<0){
+                dp[i][j] = (dp[i][j]+1000000007)%1000000007;
+            }
+        }
+        return dp[i][j]%1000000007;
+    }

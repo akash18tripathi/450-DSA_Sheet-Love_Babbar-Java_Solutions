@@ -1,0 +1,22 @@
+    long countPS(String str)
+    {
+        // Your code here
+        if(str.length()==0){
+            return 0;
+        }
+        return util(str,0,str.length()-1);
+    }
+    
+    long util(String s,int i,int j){
+        if(i==j){
+            return 1;
+        }
+        if(i>j){
+            return 0;
+        }
+        if(s.charAt(i)==s.charAt(j)){
+            return 1 + util(s,i,j-1) + util(s,i+1,j);
+        }else{
+            return util(s,i+1,j)+util(s,i,j-1)-util(s,i+1,j-1);
+        }
+    }

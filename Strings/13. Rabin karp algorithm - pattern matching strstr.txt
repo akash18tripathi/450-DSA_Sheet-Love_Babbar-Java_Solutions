@@ -1,0 +1,45 @@
+public int strStr(String haystack, String needle) {
+        int n = haystack.length();
+        int m = needle.length();
+        if(m>n){
+            return -1;
+        }
+        if(m==0){
+            return 0;
+        }
+        return util(haystack,needle,n,m);
+        
+    }
+    public int util(String text,String pattern,int n,int m){
+        int mod =101;
+        int p=0,t=0,pow=1,nums=256;
+        for(int i=0;i<m-1;i++){
+            pow = (pow*nums)%mod;
+        }
+        System.out.println(pow);
+        for(int i=0;i<m;i++){
+            p = (nums*p + pattern.charAt(i))%mod;
+            t = (nums*t+ text.charAt(i))%mod;
+        }
+        
+        for(int i=0;i<=n-m;i++){
+            if(p==t){
+                int j;
+                for( j=0;j<m;j++){
+                    if(pattern.charAt(j)!=text.charAt(i+j)){
+                        break;
+                    }
+                }
+                if(j==m){
+                    return i;
+                }
+            }
+            if(i<n-m){
+                t = (nums*(t-text.charAt(i)*pow) + text.charAt(i+m))%mod;
+                if(t<0){
+                    t = t+mod;
+                }
+            }
+        }
+        return -1;
+    }

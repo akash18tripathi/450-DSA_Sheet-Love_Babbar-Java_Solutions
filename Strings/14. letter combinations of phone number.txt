@@ -1,0 +1,28 @@
+public List<String> letterCombinations(String digits) {
+        if(digits.length()==0){
+            return new ArrayList<String>();
+        }
+        Map<Character,List<String>> mp = new HashMap<>();
+        mp.put('2',new ArrayList<String>(Arrays.asList("a","b","c")));
+        mp.put('3',new ArrayList<String>(Arrays.asList("d","e","f")));
+        mp.put('4',new ArrayList<String>(Arrays.asList("g","h","i")));
+        mp.put('5',new ArrayList<String>(Arrays.asList("j","k","l")));
+        mp.put('6',new ArrayList<String>(Arrays.asList("m","n","o")));
+        mp.put('7',new ArrayList<String>(Arrays.asList("p","q","r","s")));
+        mp.put('8',new ArrayList<String>(Arrays.asList("t","u","v")));
+        mp.put('9',new ArrayList<String>(Arrays.asList("w","x","y","z")));
+        List<String> li = new ArrayList<>();
+        for(String s: mp.get(digits.charAt(0))){
+            li.add(s);
+        }
+        for(int i=1;i<digits.length();i++){
+            ArrayList<String> temp = new ArrayList<>();
+            for(String s: mp.get(digits.charAt(i))){
+                for(String e: li){
+                    temp.add(e+s);
+                }
+            }
+            li = temp;
+        }
+        return li;
+    }

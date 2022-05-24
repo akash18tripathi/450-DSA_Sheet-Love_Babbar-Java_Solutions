@@ -1,0 +1,43 @@
+    public boolean exist(char[][] board, String word) {
+        int m= board.length,n=board[0].length;
+        boolean[][] visited = new boolean[m][n];
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(dfs(board,word,0,i,j,visited,m,n)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public boolean isSafe(int m,int n,int i,int j,boolean[][] visited){
+        if(i>=m || j>=n || i<0 || j<0 ){
+            return false;
+        }
+        return true;
+    }
+    public boolean dfs(char[][] board,String word,int index,int i,int j,boolean[][] visited,int m,int n){
+        
+        if(index==word.length()){
+            System.out.println(i+" "+j);
+            return true;
+        }
+        if(!isSafe(m,n,i,j,visited)){
+            return false;
+        }
+        if(visited[i][j]){
+            return false;
+        }
+        if(word.charAt(index)!=board[i][j]){
+            return false;
+        }
+        visited[i][j] = true;
+        boolean ans= dfs(board,word,index+1,i+1,j,visited,m,n) 
+                    || dfs(board,word,index+1,i-1,j,visited,m,n)
+                    || dfs(board,word,index+1,i,j+1,visited,m,n)
+                    ||dfs(board,word,index+1,i,j-1,visited,m,n);
+        
+        visited[i][j] = false;
+        return ans;
+
+    }

@@ -1,0 +1,22 @@
+int countRev (String s)
+    {
+        // your code here    
+        int n = s.length();
+        if(n%2!=0){
+            return -1;
+        }
+        int leftbrace=0,rightbrace=0;
+        for(char c: s.toCharArray()){
+            if(c=='{'){
+                leftbrace++;
+            }else{
+                if(leftbrace==0){
+                    rightbrace++;
+                }else{
+                    leftbrace--;
+                }
+            }
+        }
+        
+        return leftbrace/2+rightbrace/2 + leftbrace%2+rightbrace%2;
+    }
