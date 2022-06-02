@@ -1,0 +1,35 @@
+public static Node deleteNode(Node head,int d)
+    {
+        //Add your code here
+        if(head==null){
+            return null;
+        }
+        Node h = head;
+        while(h.next!=null && h.next.data!=d){
+            h=h.next;
+        }
+        if(h.next==head){
+            h.next = h.next.next;
+            head = h.next;
+        }else{
+            h.next = h.next.next;
+        }
+        return head;
+        
+    }
+    //This method returns the head node of the reversed Linked list.
+    public static Node reverse(Node head)
+    {
+        //Add your code here
+        Node prev=head,curr=head.next,next;
+        
+        while(curr!=head){
+            next = curr.next;
+            curr.next = prev;
+            prev= curr;
+            curr = next;
+        }
+        curr.next=prev;
+        head = prev;
+        return head;
+    }

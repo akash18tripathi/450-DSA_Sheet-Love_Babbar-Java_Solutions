@@ -1,0 +1,34 @@
+public int findSubString( String str) {
+        // Your code goes here
+        boolean[] visited = new boolean[256];
+        int[] count = new int[256];
+        int distinctCount=0;
+        for(int i=0;i<str.length();i++){
+            if(visited[str.charAt(i)]==false){
+                distinctCount++;
+                visited[str.charAt(i)]=true;
+            }
+        }
+        int counter=0,minLen = Integer.MAX_VALUE,len=0,start=0;
+        
+        for(int i=0;i<str.length();i++){
+            count[str.charAt(i)]++;
+            if(count[str.charAt(i)]==1){
+                counter++;
+            }
+            if(counter==distinctCount){
+                
+                while(start<str.length() && count[str.charAt(start)]>1){
+                    if(count[str.charAt(start)]>1){
+                        count[str.charAt(start)]--;
+                    }
+                    start++;
+                }
+                len = i-start+1;
+                minLen = Math.min(len,minLen);
+            }
+        }
+        
+        
+        return minLen;
+    }

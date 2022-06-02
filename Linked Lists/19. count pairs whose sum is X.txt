@@ -1,0 +1,22 @@
+public static int countPairs(LinkedList<Integer> head1, LinkedList<Integer> head2,
+                          int x) {
+        // add your code here
+        
+        if(head1==null || head2==null){
+            return 0;
+        }
+        
+        int n=head1.size();
+        int m = head2.size();
+        int count =0;
+        Set<Integer> st = new HashSet<>();
+        for(int i=0;i<n;i++){
+            st.add(head1.get(i));
+        }
+        for(int i=0;i<m;i++){
+            if(st.contains(x-head2.get(i))){
+                count++;
+            }
+        }
+        return count;
+    }

@@ -1,0 +1,22 @@
+public Node rotateDLL(Node start, int p) {
+		//Write your code here
+		int count=0;
+		Node h1=start,curr=start,prev=null;
+		while(curr!=null){
+		    prev=curr;
+		    curr=curr.next;
+		    count++;
+		    if(count==p){
+		        break;
+		    }
+		}
+		prev.next=null;
+		curr.prev=null;
+		Node head = curr;
+		while(curr.next!=null){
+		    curr=curr.next;
+		}
+		curr.next = h1;
+		h1.prev= curr;
+		return head;
+	}

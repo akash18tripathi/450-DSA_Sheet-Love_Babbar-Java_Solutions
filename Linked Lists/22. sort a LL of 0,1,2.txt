@@ -1,0 +1,35 @@
+static Node segregate(Node head)
+    {
+        // add your code here
+        int z=0,o=0,t=0;
+        Node temp = head;
+        while(temp!=null){
+            if(temp.data==0){
+                z++;
+            }
+            if(temp.data==1){
+                o++;
+            }
+            if(temp.data==2){
+                t++;
+            }
+            temp = temp.next;
+        }
+        temp = head;
+        while(z>0 && temp!=null){
+            temp.data=0;
+            temp=temp.next;
+            z--;
+        }
+        while(o>0 && temp!=null){
+            temp.data=1;
+            temp=temp.next;
+            o--;
+        }
+        while(t>0 && temp!=null){
+            temp.data=2;
+            temp=temp.next;
+            t--;
+        }
+        return head;
+    }
