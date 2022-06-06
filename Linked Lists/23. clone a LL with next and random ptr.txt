@@ -1,0 +1,28 @@
+Node copyList(Node head) {
+        // your code here
+        Node curr= head,next,copyHead;
+        while(curr!=null){
+            Node temp = new Node(curr.data);
+            next = curr.next;
+            curr.next = temp;
+            temp.next = next;
+            curr=next;
+        }
+        curr = head;
+        while(curr!=null && curr.next!=null){
+            curr.next.arb = curr.arb!=null?curr.arb.next:curr.arb;
+            curr = curr.next.next;
+        }
+        
+        curr = head;
+        copyHead=curr.next;
+        Node temp=copyHead;
+        while(curr!=null){
+            curr.next = curr.next.next;
+            temp.next = temp.next!=null?temp.next.next:temp.next;
+            curr = curr.next;
+            temp=temp.next;
+        }
+        
+        return copyHead;
+    }

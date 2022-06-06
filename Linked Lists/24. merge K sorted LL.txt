@@ -1,0 +1,29 @@
+Node mergeKList(Node[]arr,int K)
+    {
+        //Add your code here.
+        int n=arr.length;
+        int j=n-1;
+        while(j>0){
+            arr[j-1] = merge(arr[j-1],arr[j]);
+            j--;
+        }
+        return arr[0];
+    }
+    
+    Node merge(Node a,Node b){
+        if(a==null){
+            return b;
+        }
+        if(b==null){
+            return a;
+        }
+        Node temp;
+        if(a.data<b.data){
+            temp = new Node(a.data);
+            temp.next = merge(a.next,b);
+        }else{
+            temp = new Node(b.data);
+            temp.next = merge(a,b.next);
+        }
+        return temp;
+    }

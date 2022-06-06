@@ -1,0 +1,18 @@
+public long multiplyTwoLists(Node l1,Node l2){
+          //add code here.
+         
+          long N = 1000000007;
+          long n1=0,n2=0;
+          while(l1!=null || l2!=null){
+              if(l1!=null){
+                  n1 = (n1*10)%N+ l1.data;
+                  l1 = l1.next;
+              }
+              if(l2!=null){
+                  n2 = (n2*10)%N+ l2.data;
+                  l2 = l2.next;
+              }
+          }
+          
+          return ((n1%N)*(n2%N))%N;
+   }

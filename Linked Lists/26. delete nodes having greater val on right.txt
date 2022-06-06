@@ -1,0 +1,30 @@
+Node compute(Node head)
+    {
+        // your code here
+        Node revHead = reverse(head);
+        
+        Node curr = revHead;
+        int maxTillNow=curr.data;
+        while(curr!=null && curr.next!=null){
+            if(curr.next.data<maxTillNow){
+                curr.next = curr.next.next;
+            }else{
+                maxTillNow = curr.next.data;
+                curr=curr.next;
+            }
+        }
+        head = reverse(revHead);
+        return head;
+    }
+    
+    Node reverse(Node head){
+        Node prev=null,curr=head,next;
+        while(curr!=null){
+            next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+        }
+        head = prev;
+        return head;
+    }
