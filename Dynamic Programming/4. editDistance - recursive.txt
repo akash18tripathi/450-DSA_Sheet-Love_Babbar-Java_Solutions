@@ -1,0 +1,21 @@
+public int editDistance(String s, String t) {
+        // Code here
+        return util(s,s.length(),t,t.length());
+        
+    }
+    public int util(String s,int i,String t, int j){
+        if(i==0){
+            return j;
+        }
+        if(j==0){
+            return i;
+        }
+        if(s.charAt(i-1)==t.charAt(j-1)){
+            return util(s,i-1,t,j-1);
+        }
+        int insert = 1 + util(s,i,t,j-1);
+        int remove = 1+ util(s,i-1,t,j);
+        int replace = 1 + util(s,i-1,t,j-1);
+        
+        return Math.min(insert,Math.min(remove,replace));
+    }

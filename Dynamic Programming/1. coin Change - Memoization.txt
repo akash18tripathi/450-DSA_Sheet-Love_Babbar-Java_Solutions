@@ -1,0 +1,24 @@
+ public long count(int S[], int m, int n) {
+        // code here.
+        long[][] dp = new long[n+1][m];
+        for(int i=0;i<=n;i++){
+            Arrays.fill(dp[i],-1);
+        }
+        return dpUtil(S,n,m-1,dp);
+    }
+    public long dpUtil(int[] arr,int n,int i,long[][] dp){
+        if(n<0){
+            return 0;
+        }
+        if(i<0){
+            return 0;
+        }
+        if(n==0){
+            return dp[n][i]=1;
+        }
+        if(dp[n][i]!=-1){
+            return dp[n][i];
+        }
+        dp[n][i]=dpUtil(arr,n-arr[i],i,dp)+dpUtil(arr,n,i-1,dp);
+        return dp[n][i];
+    }

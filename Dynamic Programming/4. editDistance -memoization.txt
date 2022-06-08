@@ -1,0 +1,29 @@
+public int editDistance(String s, String t) {
+        // Code here
+        int[][] dp = new int[s.length()][t.length()];
+        for(int i=0;i<s.length();i++){
+            Arrays.fill(dp[i],-1);
+        }
+        return util(s,s.length(),t,t.length(),dp);
+        
+    }
+    public int util(String s,int i,String t, int j,int[][] dp){
+        if(i==0){
+            return j;
+        }
+        if(j==0){
+            return i;
+        }
+        if(dp[i-1][j-1]!=-1){
+            return dp[i-1][j-1];
+        }
+        if(s.charAt(i-1)==t.charAt(j-1)){
+            dp[i-1][j-1]=util(s,i-1,t,j-1,dp);
+            return dp[i-1][j-1];
+        }
+        int insert = 1 + util(s,i,t,j-1,dp);
+        int remove = 1+ util(s,i-1,t,j,dp);
+        int replace = 1 + util(s,i-1,t,j-1,dp);
+        
+        return dp[i-1][j-1]=Math.min(insert,Math.min(remove,replace));
+    }
