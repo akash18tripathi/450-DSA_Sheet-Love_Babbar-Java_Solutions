@@ -1,0 +1,22 @@
+    static int sum;
+	public int maxSumIS(int arr[], int n)  
+	{  
+	    //code here.
+	    sum=0;
+	    util(arr,0,n-1,Integer.MAX_VALUE);
+	    return sum;
+	}  
+	
+	public void util(int[] arr,int s,int i,int prev){
+	    if(s>sum){
+	        sum=s;
+	    }
+	    if(i<0){
+	        return;
+	    }
+	    if(arr[i]<prev){
+	        util(arr,s+arr[i],i-1,arr[i]);
+	    }
+	    util(arr,s,i-1,prev);
+	    return;
+	}

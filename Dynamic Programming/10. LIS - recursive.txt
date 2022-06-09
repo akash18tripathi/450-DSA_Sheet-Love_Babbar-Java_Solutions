@@ -1,0 +1,16 @@
+    static int longestSubsequence(int size, int a[])
+    {
+        // code here
+        return util(a,Integer.MAX_VALUE,size-1);
+    }
+    static int util(int[] arr,int prev,int i){
+        if(i<0){
+            return 0;
+        }
+        int max=0;
+        if(arr[i]<prev){
+            max = Math.max(1+util(arr,arr[i],i-1),max);
+        }
+        max = Math.max(util(arr,prev,i-1) ,max);
+        return max;
+    }

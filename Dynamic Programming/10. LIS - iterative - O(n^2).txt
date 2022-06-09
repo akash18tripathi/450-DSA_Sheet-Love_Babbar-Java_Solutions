@@ -1,0 +1,18 @@
+    static int longestSubsequence(int size, int a[])
+    {
+        // code here
+        int[] dp = new int[size];
+        dp[0]=1;
+        int max,ans=0;
+        for(int i=1;i<size;i++){
+            max=0;
+            for(int j=0;j<i;j++){
+                if(a[i]>a[j]){
+                    max = Math.max(dp[j],max);
+                }
+            }
+            dp[i]=max+1;
+            ans = Math.max(ans,dp[i]);
+        }
+        return ans;
+    }
