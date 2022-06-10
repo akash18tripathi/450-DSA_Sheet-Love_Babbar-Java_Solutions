@@ -1,0 +1,25 @@
+    public static int maxSumPairWithDifferenceLessThanK(int arr[], int N, int K) 
+    {
+        // Your code goes here 
+        Arrays.sort(arr);
+        boolean[] taken = new boolean[N];
+        int j,sum=0;
+        for(int i=N-1;i>=0;i--){
+            if(!taken[i]){
+                j=i-1;
+                while(j>=0 && arr[i]-arr[j]<K){
+                    if(!taken[j]){
+                        taken[i]=true;
+                        taken[j]=true;
+                        sum+=arr[i]+arr[j];
+                        break;
+                    }else{
+                        j--;
+                    }
+                }
+            }
+            
+        }
+        
+        return sum;
+    }
