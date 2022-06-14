@@ -1,0 +1,28 @@
+public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
+    // Code here
+    
+    boolean[] visited = new boolean[V];
+    for(int i=0;i<V;i++){
+        if(!visited[i]){
+            if(isCyclicUtil(i,adj,visited,-1)){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+public boolean isCyclicUtil(int node,ArrayList<ArrayList<Integer>> adj,boolean[] visited,int parent){
+    
+    if(visited[node]){
+        return true;
+    }
+    visited[node]=true;
+    for(int e: adj.get(node)){
+        if(e!=parent){
+            if(isCyclicUtil(e,adj,visited,node)){
+                return true;
+            }
+        }
+    }
+    return false;
+}
