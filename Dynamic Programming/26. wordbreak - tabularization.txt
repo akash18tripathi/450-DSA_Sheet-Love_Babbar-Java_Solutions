@@ -1,0 +1,18 @@
+public static int wordBreak(String A, ArrayList<String> B )
+{
+    //code here
+    int[] dp = new int[A.length()];
+    for(int i=0;i<dp.length;i++){
+        for(int j=0;j<=i;j++){
+            String word = A.substring(j,i+1);
+            if(B.contains(word)){
+                if(j>=1){
+                    dp[i]+=dp[j-1];
+                }else{
+                    dp[i]+=1;
+                }
+            }
+        }
+    }
+    return dp[A.length()-1]>0?1:0;
+}

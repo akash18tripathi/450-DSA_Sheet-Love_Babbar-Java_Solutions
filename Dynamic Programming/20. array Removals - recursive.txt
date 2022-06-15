@@ -1,0 +1,16 @@
+int removals(int[] arr, int n, int k) {
+    // code here
+    Arrays.sort(arr);
+    int ans = util(arr,0,n-1,k);
+    return ans==Integer.MAX_VALUE?n-1:ans;
+}
+
+int util(int[] arr,int i,int j,int k){
+    if(i>=j){
+        return Integer.MAX_VALUE;
+    }
+    if(arr[j]-arr[i]<=k){
+        return i+arr.length-j-1;
+    }
+    return Math.min(util(arr,i+1,j,k),Math.min(util(arr,i,j-1,k),util(arr,i+1,j-1,k)));
+}

@@ -1,0 +1,15 @@
+static int smallestSumSubarray(int a[], int size)
+{
+    // your code here
+    int min_here,min;
+    min_here=min=Integer.MAX_VALUE;
+    for(int i=0;i<size;i++){
+        if(min_here>0){
+            min_here=a[i];
+        }else{
+            min_here+=a[i];
+        }
+        min = Math.min(min,min_here);
+    }
+    return min;
+}

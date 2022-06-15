@@ -1,0 +1,19 @@
+public static int wordBreak(String A, ArrayList<String> B )
+{
+    //code here
+    Set<String> st = new HashSet<>(B);
+    return util(A,st)?1:0;
+}
+
+public static boolean util(String s,Set<String> st){
+    
+    if(s.length()==0){
+        return true;
+    }
+    for(int i=1;i<=s.length();i++){
+        if(st.contains(s.substring(0,i)) && util(s.substring(i,s.length()),st)){
+            return true;
+        }
+    }
+    return false;
+}

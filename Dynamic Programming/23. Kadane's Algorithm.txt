@@ -1,0 +1,12 @@
+long maxSubarraySum(int arr[], int n){
+    
+    // Your code here
+    long maxHere = 0;
+    long max=Long.MIN_VALUE;
+    for(int i=0;i<n;i++){
+        maxHere +=arr[i];
+        max = Math.max(max,maxHere);
+        maxHere = maxHere<0?0:maxHere;
+    }
+    return max;
+}
