@@ -1,0 +1,31 @@
+static int minDist(boolean[] inSet,int[] dist,int V){
+    int minVal=Integer.MAX_VALUE,minIndex=-1;
+    for(int i=0;i<V;i++){
+        if(!inSet[i] && dist[i]<minVal){
+            minIndex=i;
+            minVal=dist[i];
+        }
+    }
+    return minIndex;
+}
+static int[] dijkstra(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj, int S)
+{
+    // Write your code here
+    int[] dist = new int[V];
+    boolean[] inSet = new boolean[V];
+    Arrays.fill(dist,Integer.MAX_VALUE);
+    Arrays.fill(inSet,false);
+    dist[S]=0;
+    for(int i=0;i<V;i++){
+        int minIndex = minDist(inSet,dist,V);
+        inSet[minIndex]=true;
+        for(ArrayList<Integer> li: adj.get(minIndex)){
+           int node = li.get(0);
+           int val = li.get(1);
+           if(!inSet[node] && dist[node]>dist[minIndex]+val){
+               dist[node] = dist[minIndex]+val;
+           }
+        }
+    }
+    return dist;
+}

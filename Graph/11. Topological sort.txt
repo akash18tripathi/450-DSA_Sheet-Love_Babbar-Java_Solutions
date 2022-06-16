@@ -1,0 +1,29 @@
+static int[] topoSort(int V, ArrayList<ArrayList<Integer>> adj) 
+{
+    // add your code here
+    int[] indegree = new int[V];
+    for(int i=0;i<V;i++){
+        for(int e: adj.get(i)){
+            indegree[e]++;
+        }
+    }
+    Queue<Integer> q = new LinkedList<>();
+    for(int i=0;i<V;i++){
+        if(indegree[i]==0){
+            q.add(i);
+        }
+    }
+    int index=0;
+    int[] ans = new int[V];
+    while(!q.isEmpty()){
+        int t = q.poll();
+        ans[index++]=t;
+        for(int e: adj.get(t)){
+            indegree[e]--;
+            if(indegree[e]==0){
+                q.add(e);
+            }
+        }
+    }
+    return ans;
+}

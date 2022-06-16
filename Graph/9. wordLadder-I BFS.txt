@@ -1,0 +1,53 @@
+class Pair{
+    String s;
+    int dist;
+    Pair(String s,int d){
+        this.s = s;
+        this.dist=d;
+    }
+}
+public int wordLadderLength(String startWord, String targetWord, String[] wordList)
+{
+    // Code here
+    if(startWord.length()!=targetWord.length()){
+        return 0;
+    }
+    Map<String,HashSet<String>> mp = new HashMap<>();
+    String tempword;
+    for(String word : wordList){
+        for(int i=0;i<word.length();i++){
+             tempword = word.substring(0,i)+"."+word.substring(i+1,word.length());
+            if(mp.containsKey(tempword)){
+                mp.get(tempword).add(word);
+            }else{
+                mp.put(tempword,new HashSet<>());
+                mp.get(tempword).add(word);
+            }
+        }
+    }
+    Queue<Pair> q = new LinkedList<>();
+    Set<String> visited = new HashSet<>();
+    q.add(new Pair(startWord,1));
+    visited.add(startWord);
+    while(!q.isEmpty()){
+        Pair p = q.poll();
+        String word = p.s;
+        //System.out.println(word);
+        if(word.equals(targetWord)){
+            return p.dist;
+        }
+        for(int i=0;i<word.length();i++){
+            tempword =  word.substring(0,i)+"."+word.substring(i+1,word.length());
+            Set<String> st = mp.get(tempword);
+            if(st!=null){
+                for(String temp: st){
+                    if(!visited.contains(temp)){
+                        q.add(new Pair(temp,p.dist+1));
+                        visited.add(temp);
+                    }
+                }
+            }
+        }
+    }
+    return 0;
+}

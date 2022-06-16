@@ -1,0 +1,34 @@
+public boolean isPossible(int N, int[][] prerequisites)
+{
+    // Your Code goes here
+    ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+    for(int i=0;i<N;i++){
+        graph.add(new ArrayList<>());
+    }
+    int[] indegree = new int[N];
+    for(int[] e: prerequisites){
+        graph.get(e[1]).add(e[0]);
+        indegree[e[0]]++;
+    }
+    Queue<Integer> q = new LinkedList<>();
+    for(int i=0;i<N;i++){
+        if(indegree[i]==0){
+            q.add(i);
+        }
+    }
+    int count=0;
+    while(!q.isEmpty()){
+        int t = q.poll();
+        count++;
+        for(int e: graph.get(t)){
+            indegree[e]--;
+            if(indegree[e]==0){
+                q.add(e);
+            }
+        }
+    }
+    if(count==N){
+        return true;
+    }
+    return false;
+}

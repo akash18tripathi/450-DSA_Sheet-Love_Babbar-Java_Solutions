@@ -1,0 +1,32 @@
+public int makeConnected(int n, int[][] connections) {
+    if(connections.length<n-1){
+        return -1;
+    }
+    ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+    for(int i=0;i<n;i++){
+        graph.add(new ArrayList<>());
+    }
+    for(int[] edge: connections){
+        graph.get(edge[0]).add(edge[1]);
+        graph.get(edge[1]).add(edge[0]);
+    }
+    boolean[] visited = new boolean[n];
+    int components=0;
+    for(int i=0;i<n;i++){
+        if(!visited[i]){
+            components++;
+            dfs(i,visited,graph);
+        }
+    }
+    return components-1;
+}
+public void dfs(int n,boolean[] visited,ArrayList<ArrayList<Integer>> graph){
+    visited[n]=true;
+    for(int e: graph.get(n)){
+        if(!visited[e]){
+            dfs(e,visited,graph);
+        }
+    }
+    return;
+}
+}
