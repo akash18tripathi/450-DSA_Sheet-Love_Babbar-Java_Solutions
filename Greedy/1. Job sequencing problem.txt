@@ -1,0 +1,35 @@
+class sortByProfit implements Comparator<Job>{
+    public int compare(Job a,Job b){
+        return b.profit-a.profit;
+    }
+}
+
+int[] JobScheduling(Job arr[], int n)
+{
+    // Your code here
+    PriorityQueue<Job> pq = new PriorityQueue<Job>(n,new sortByProfit());
+    int maxDeadline = 0;
+    for(int i=0;i<n;i++){
+        maxDeadline = Math.max(maxDeadline,arr[i].deadline);
+        pq.add(arr[i]);
+    }
+    boolean[] isAlloted = new boolean[maxDeadline+1];
+    
+    int j;
+    int profit=0,jobsCompleted=0;
+    while(!pq.isEmpty()){
+        Job job = pq.poll();
+        j=job.deadline;
+        while(j>0 && isAlloted[j] ){
+            j--;
+        }
+        if(j>0){
+            isAlloted[j]=true;
+            profit+=job.profit;
+            jobsCompleted++;
+        }
+        
+    }
+    int[] ans = {jobsCompleted,profit};
+    return ans;
+}

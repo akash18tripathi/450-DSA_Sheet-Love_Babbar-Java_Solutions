@@ -1,0 +1,52 @@
+public String findOrder(String [] dict, int N, int K)
+{
+    // Write your code here
+    ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+    for(int i=0;i<K;i++){
+        graph.add(new ArrayList<>());
+    }
+    int[] inorder = new int[K];
+    for(int i=0;i<N-1;i++){
+        order(dict[i],dict[i+1],graph,inorder);
+    }
+    Queue<Integer> q = new LinkedList<>();
+    StringBuilder sb = new StringBuilder();
+    for(int i=0;i<K;i++){
+        if(inorder[i]==0){
+            q.add(i);
+        }
+    }
+    while(!q.isEmpty()){
+        int size = q.size();
+        while(size>0){
+            int p = q.poll();
+            sb.append((char)('a'+p));
+            for(int adj : graph.get(p)){
+                inorder[adj]--;
+                if(inorder[adj]==0){
+                    q.add(adj);
+                }
+            }
+            
+            size--;
+        }
+        
+    }
+    return sb.toString();
+    
+}
+public void order(String a,String b,ArrayList<ArrayList<Integer>> graph,int[] inorder){
+    int i=0;
+    while(i<a.length() && i<b.length()){
+        if(a.charAt(i)==b.charAt(i)){
+            i++;
+        }else{
+            char c1=a.charAt(i);
+            char c2=b.charAt(i);
+            graph.get(c1-'a').add(c2-'a');
+            inorder[c2-'a']++;
+            return;
+        }
+    }
+    return;
+}

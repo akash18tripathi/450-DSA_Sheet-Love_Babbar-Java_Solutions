@@ -1,0 +1,25 @@
+public int longestPalinSubseq(String s)
+{
+    //code here
+    return lpsUtil(s,0,s.length()-1);
+}
+public int lpsUtil(String s,int i,int j){
+    if(i==j-1){
+        if(s.charAt(i)==s.charAt(j)){
+            return 2;
+        }else{
+            return 1;
+        }
+    }
+    if(i==j){
+        return 1;
+    }
+    if(i<j){
+        if(s.charAt(i)==s.charAt(j)){
+            return 2 + lpsUtil(s,i+1,j-1);
+        }else{
+            return Math.max(lpsUtil(s,i+1,j),lpsUtil(s,i,j-1));
+        }
+    }
+    return 0;
+}
