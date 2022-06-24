@@ -1,0 +1,71 @@
+    static class Node implements Comparator<Node>{
+        int cost;
+        int from;
+        int to;
+        
+        Node(int c,int n1,int n2){
+            this.cost = c;
+            this.from =n1;
+            this.to = n2;
+        }
+        Node(){
+            
+        }
+        @Override
+        public int compare(Node n1,Node n2){
+            return n1.cost-n2.cost;
+        }
+    }
+
+    static int spanningTree(int V, ArrayList<ArrayList<ArrayList<Integer>>> graph) 
+    {
+        // Add your code here
+        ArrayList<Node> li = new ArrayList<>();
+        int[] arr = new int[V];
+        int[] rank = new int[V];
+        for(int i=0;i<V;i++){
+            arr[i]=i;
+            rank[i]=0;
+        }
+        for(int i=0;i<V;i++){
+            for(ArrayList<Integer> adj: graph.get(i)){
+                li.add(new Node(adj.get(1),i,adj.get(0)));
+            }
+        }
+        Collections.sort(li,new Node());
+        int cost=0,count=0;
+        for(Node n: li){
+            if(count==V-1){
+                break;
+            }
+            int p1 = findParent(n.from,arr);
+            int p2 = findParent(n.to,arr);
+            if(p1!=p2){
+                cost+= n.cost;
+                union(n.from,n.to,arr,rank);
+                count++;
+            }
+        }
+        return cost;
+    }
+    
+    static int findParent(int u,int[] arr){
+        if(arr[u]==u){
+            return u;
+        }
+        return arr[u]=findParent(arr[u],arr);
+    }
+    static void union(int u,int v,int[] arr,int[] rank){
+        if(arr[u]==arr[v]){
+            return;
+        }
+        if(rank[u]<rank[v]){
+            arr[u]=v;
+        }else if(rank[v]<rank[u]){
+            arr[v]=u;
+        }else{
+            arr[v]=u;
+            rank[u]++;
+        }
+        return;
+    }

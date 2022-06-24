@@ -1,0 +1,16 @@
+static class Pair implements Comparator<Pair>{
+    int cost;
+    int node;
+    
+    Pair(int c,int n){
+        this.cost = c;
+        this.node = n;
+    }
+    Pair(){
+        
+    }
+    @Override
+    public int compare(Pair a,Pair b){
+        return a.cost-b.cost;
+    }
+}

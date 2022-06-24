@@ -1,0 +1,56 @@
+static class TrieNode{
+    TrieNode[] children;
+    boolean isUnique;
+    
+    TrieNode(){
+        children = new TrieNode[26];
+        Arrays.fill(children,null);
+        isUnique=true;
+    }
+}
+static String[] findPrefixes(String[] arr, int N) {
+    // code here
+    TrieNode root = new TrieNode();
+    for(String s: arr){
+        insert(root,s);
+    }
+    String[] ans = new String[N];
+    int i=0;
+    for(String s: arr){
+        ans[i]=searchUniquePrefix(s,root);
+        i++;
+    }
+    return ans;
+}
+
+static String searchUniquePrefix(String s,TrieNode root){
+    TrieNode node = root;
+    int index;
+    StringBuilder sb = new StringBuilder();
+    for(int i=0;i<s.length();i++){
+        index= s.charAt(i)-'a';
+        if(node.children[index].isUnique==true){
+            sb.append(s.charAt(i));
+            return sb.toString();
+        }else{
+            node = node.children[index];
+            sb.append(s.charAt(i));
+        }
+    }
+    return sb.toString();
+}
+
+static void insert(TrieNode root,String s){
+    int n = s.length(),index;
+    TrieNode node = root;
+    for(int i=0;i<n;i++){
+        index = s.charAt(i)-'a';
+        if(node.children[index]==null){
+            node.children[index] = new TrieNode();
+        }else{
+            node.children[index].isUnique=false;
+        }
+        node = node.children[index];
+    }
+    return;
+}

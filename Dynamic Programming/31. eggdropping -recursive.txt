@@ -1,0 +1,16 @@
+static int eggDrop(int n, int k) 
+{
+    // Your code here
+    if(k==0|| k==1){
+        return k;
+    }
+    if(n==1){
+        return k;
+    }
+    int res,max=Integer.MAX_VALUE;
+    for(int i=1;i<=k;i++){
+        res = Math.max(eggDrop(n-1,i-1),eggDrop(n,k-i));
+        max = Math.min(max,res);
+    }
+    return max+1;
+}

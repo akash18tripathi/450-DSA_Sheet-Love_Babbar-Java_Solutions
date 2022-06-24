@@ -1,0 +1,53 @@
+static class TrieNode{
+    TrieNode[] children;
+    TreeSet<String> li;
+    
+    TrieNode(){
+        children = new TrieNode[26];
+        li = new TreeSet<>();
+    }
+}
+static ArrayList<ArrayList<String>> displayContacts(int n, 
+                                    String contact[], String s)
+{
+    // code here
+    TrieNode root = new TrieNode();
+    Arrays.sort(contact);
+    for(int i=0;i<contact.length;i++){
+        insert(root,contact[i]);
+    }
+    ArrayList<ArrayList<String>> ans = new ArrayList<>();
+    int index;
+    TrieNode node = root;
+    for(int i=0;i<s.length();i++){
+        index = s.charAt(i)-'a';
+        if(node.children[index]!=null){
+            ans.add(new ArrayList<>(node.children[index].li));
+            node = node.children[index];
+        }else{
+            for(int j=i;j<s.length();j++){
+                ArrayList<String> li = new ArrayList<>();
+                li.add("0");
+                ans.add(li);
+            }
+            break;
+        }
+    }
+    return ans;
+}
+
+static void insert(TrieNode root,String s){
+    TrieNode node = root;
+    int index;
+    for(int i=0;i<s.length();i++){
+        index = s.charAt(i)-'a';
+        if(node.children[index]!=null){
+            node.children[index].li.add(s);
+        }else{
+            node.children[index] = new TrieNode();
+            node.children[index].li.add(s);
+        }
+        node = node.children[index];
+    }
+    return;
+}

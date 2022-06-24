@@ -1,0 +1,40 @@
+static int spanningTree(int V, ArrayList<ArrayList<ArrayList<Integer>>> graph) 
+{
+    // Add your code here
+    int[] keys =new int[V];
+    boolean[] taken = new boolean[V];
+    int[] parent = new int[V];
+    Arrays.fill(parent,-1);
+    Arrays.fill(keys,Integer.MAX_VALUE);
+    Arrays.fill(taken,false);
+    keys[0]=0;
+    int minIndex,sum=0;
+    for(int i=0;i<V-1;i++){
+        minIndex = getMin(keys,taken);
+        taken[minIndex]=true;
+        for(ArrayList<Integer> child: graph.get(minIndex)){
+            int vertex = child.get(0);
+            int cost = child.get(1);
+            if(!taken[vertex] && cost<keys[vertex]){
+                keys[vertex] = cost;
+                parent[vertex] = minIndex;
+            }
+        }
+    }
+    for(int i=1;i<V;i++){
+        sum += keys[i];
+    }
+    return sum;
+    
+}
+
+static int getMin(int[] keys,boolean[] taken){
+    int min=Integer.MAX_VALUE,minIndex=-1;
+    for(int i=0;i<keys.length;i++){
+        if(!taken[i] && keys[i]<min){
+            min = keys[i];
+            minIndex=i;
+        }
+    }
+    return minIndex;
+}

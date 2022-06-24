@@ -1,0 +1,19 @@
+static int findPosition(int n) {
+    // code here
+    int count=1;
+    boolean found=false;
+    int numset=0;
+    while(n!=0){
+        if(n%2==0 && numset==0){
+            count++;
+        }else{
+            found=true;
+            numset++;
+        }
+        n=n>>1;
+    }
+    if(found && numset==1){
+        return count;
+    }
+    return -1;
+}

@@ -1,0 +1,12 @@
+public static boolean isPowerofTwo(long n){
+    
+    // Your code here
+    if(n<1){
+        return false;
+    }
+    long log =(long)(Math.log(n)/Math.log(2)) ;
+    if(Math.pow(2,log)!=n){
+        return false;
+    }
+    return true;
+}

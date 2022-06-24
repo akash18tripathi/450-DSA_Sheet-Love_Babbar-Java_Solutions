@@ -1,0 +1,31 @@
+public int max,count;
+public int findMaxArea(int[][] grid)
+{
+    max=0;
+    int[] x = {0,1,1,1,0,-1,-1,-1};
+    int[] y = {1,1,0,-1,-1,-1,0,1};
+    // Code here
+    for(int i=0;i<grid.length;i++){
+        for(int j=0;j<grid[0].length;j++){
+            if(grid[i][j]==1){
+                count=0;
+                dfs(grid,i,j,x,y);
+                max = Math.max(max,count);
+                count=0;
+            }
+        }
+    }
+    return max;
+}
+public void dfs(int[][] grid,int i,int j,int[] x,int[] y ){
+    if(i<0 || j<0 || i>=grid.length || j>=grid[0].length || grid[i][j]!=1 ){
+        return;
+    }
+    grid[i][j]=-1;
+    count++;
+    for(int k=0;k<8;k++){
+        dfs(grid,i+x[k],j+y[k],x,y);
+    }
+    return;
+    
+}

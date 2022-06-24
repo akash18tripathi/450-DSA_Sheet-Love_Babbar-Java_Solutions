@@ -1,0 +1,32 @@
+static void insert(TrieNode root, String key) 
+{
+    // Your code here
+    int n = key.length();
+    TrieNode crawl = root;
+    int index;
+    for(int i=0;i<n;i++){
+        index = key.charAt(i)-'a';
+        if(crawl.children[index]==null){
+            crawl.children[index] = new TrieNode();
+        }
+        crawl = crawl.children[index];
+    }
+    crawl.isEndOfWord = true;
+}
+
+//Function to use TRIE data structure and search the given string.
+static boolean search(TrieNode root, String key)
+{
+    // Your code here
+    int n = key.length();
+    TrieNode crawl = root;
+    int index;
+    for(int i=0;i<n;i++){
+        index = key.charAt(i)-'a';
+        if(crawl.children[index]==null){
+            return false;
+        }
+        crawl = crawl.children[index];
+    }
+    return crawl.isEndOfWord;
+}

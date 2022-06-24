@@ -1,0 +1,30 @@
+static int eggDrop(int n, int k) 
+{
+    // Your code here
+    int[][] dp = new int[n+1][k+1];
+    for(int i=0;i<=n;i++){
+        Arrays.fill(dp[i],-1);
+    }
+    
+    return eggDropUtil(n,k,dp);
+}
+
+static int eggDropUtil(int n, int k,int[][] dp) 
+{
+    // Your code here
+    if(k==0|| k==1){
+        return dp[n][k]=k;
+    }
+    if(n==1){
+        return dp[n][k]=k;
+    }
+    if(dp[n][k]!=-1){
+        return dp[n][k];
+    }
+    int res,max=Integer.MAX_VALUE;
+    for(int i=1;i<=k;i++){
+        res = Math.max(eggDropUtil(n-1,i-1,dp),eggDropUtil(n,k-i,dp))+1;
+        max = Math.min(max,res);
+    }
+    return dp[n][k]=max;
+}

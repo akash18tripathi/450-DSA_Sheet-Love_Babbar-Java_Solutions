@@ -1,0 +1,21 @@
+public List<List<String>> Anagrams(String[] string_list) {
+    // Code here
+    Map<String,List<String>> mp = new HashMap<>();
+    for(String s : string_list){
+        char[] arr = s.toCharArray();
+        Arrays.sort(arr);
+        String str = new String(arr);
+        if(mp.containsKey(str)){
+            mp.get(str).add(s);
+        }else{
+            List<String> li = new ArrayList<>();
+            li.add(s);
+            mp.put(str,li);
+        }
+    }
+    List<List<String>> ans = new ArrayList<>();
+    for(String key: mp.keySet() ){
+        ans.add(mp.get(key));
+    }
+    return ans;
+}
