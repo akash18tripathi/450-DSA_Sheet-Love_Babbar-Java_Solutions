@@ -1,0 +1,23 @@
+public int perfectSum(int arr[],int n, int sum) 
+{ 
+    // Your code goes here
+    int[][] dp = new int[n][sum+1];
+    for(int i=0;i<n;i++){
+        Arrays.fill(dp[i],-1);
+    }
+    return countSubsets(arr,sum,n-1,dp)%1000000007;
+} 
+
+public int countSubsets(int[] arr,int sum,int index,int[][] dp){
+    if(index<0){
+        return (sum==0)?1:0;
+    }
+    if(dp[index][sum]!=-1){
+        return dp[index][sum]%1000000007;
+    }
+    dp[index][sum] = countSubsets(arr,sum,index-1,dp)%1000000007;
+    if(sum>=arr[index]){
+        dp[index][sum]+=countSubsets(arr,sum-arr[index],index-1,dp)%1000000007;
+    }
+    return dp[index][sum]%1000000007;
+}

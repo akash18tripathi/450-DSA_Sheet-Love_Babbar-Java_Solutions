@@ -1,0 +1,44 @@
+class SegmentTree{
+    int[] seg;
+    
+    SegmentTree(int[] arr,int n){
+        seg = new int[4*n];
+        this.buildTree(arr,0,0,n-1);
+    }
+    
+    void buildTree(int[] arr,int i,int l,int h){
+        if(l==h){
+            seg[i]=arr[l];
+            return;
+        }
+        int mid = (l+h)/2;
+        buildTree(arr,2*i+1,l,mid);
+        buildTree(arr,2*i+2,mid+1,h);
+        seg[i] = seg[2*i+1]+seg[2*i+2];
+        return;
+    }
+    
+    int getSum(int i,int l,int h,int low,int high){
+        if(h<low || l>high){
+            return 0;
+        }
+        if(l<=low && h>=high){
+            return this.seg[i];
+        }
+        int mid = (low+high)/2;
+        int sum = getSum(2*i+1,l,h,low,mid)+getSum(2*i+2,l,h,mid+1,high);
+        return sum;
+    }
+}
+List<Integer> querySum(int n, int arr[], int q, int queries[])
+{
+    // code here
+    SegmentTree st = new SegmentTree(arr,n);
+    List<Integer> ans = new ArrayList<>();
+    int sum;
+    for(int i=0;i<2*q;i+=2){
+        sum = st.getSum(0,queries[i]-1,queries[i+1]-1,0,n-1);
+        ans.add(sum);
+    }
+    return ans;
+}

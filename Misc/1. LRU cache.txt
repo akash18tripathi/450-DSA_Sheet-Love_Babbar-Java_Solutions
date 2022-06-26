@@ -1,0 +1,84 @@
+class Node{
+    int val,key;
+    Node prev,next;
+    
+    Node(int k,int v){
+        this.key = k;
+        this.val=v;
+        this.prev=this.next=null;
+    }
+}
+class LRUCache
+{
+    //Constructor for initializing the cache capacity with the given value.
+    int capacity;
+    Map<Integer,Node> mp;
+    Node head,tail;
+    LRUCache(int cap)
+    {
+        //code here
+        this.capacity = cap;
+        mp = new HashMap<>();
+        head=tail=null;
+    }
+
+    //Function to return value corresponding to the key.
+    public int get(int key)
+    {
+        // your code here
+        if(mp.containsKey(key)){
+            Node n = mp.get(key);
+            moveToFront(n);
+            return n.val;
+        }
+        return -1;
+    }
+    public void moveToFront(Node n){
+        remove(n);
+        addToFront(n);
+    }
+    public void addToFront(Node n){
+        n.next=head;
+        n.prev=null;
+        if(head!=null){
+            head.prev=n;
+        }
+        head = n;
+        if(tail==null){
+            tail = n;
+        }
+    }
+
+    //Function for storing key-value pair.
+    public void set(int key, int value)
+    {
+        // your code here
+        if(mp.containsKey(key)){
+            Node n = mp.get(key);
+            n.val = value;
+            moveToFront(n);
+            return;
+        }
+        Node n = new Node(key,value);
+        if(mp.size()== this.capacity){
+            mp.remove(tail.key);
+            remove(tail);
+        }
+        addToFront(n);
+        mp.put(key,n);
+    }
+    public void remove(Node n){
+        Node prev=n.prev;
+        Node next =n.next;
+        if(prev!=null){
+            prev.next =next;
+        }else{
+            head=next;
+        }
+        if(next!=null){
+            next.prev = prev;
+        }else{
+            tail = prev;
+        }
+    }
+}

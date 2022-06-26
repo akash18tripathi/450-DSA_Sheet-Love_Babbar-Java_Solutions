@@ -1,0 +1,50 @@
+class Node implements Comparator<Node>{
+    int freq;
+    char c;
+    Node left,right;
+    
+    Node(char c,int f){
+        this.c = c;
+        this.freq=f;
+    }
+    Node(){
+        
+    }
+    public int compare(Node n1,Node n2){
+        return n1.freq-n2.freq;
+    }
+}
+public ArrayList<String> huffmanCodes(String S, int f[], int N)
+{
+    // Code here
+    PriorityQueue<Node> pq = new PriorityQueue<Node>(N,new Node());
+    for(int i=0;i<N;i++){
+        pq.add(new Node(S.charAt(i),f[i]));
+    }
+    Node root=null;
+    while(pq.size()>1){
+        Node n1 = pq.poll();
+        Node n2 = pq.poll();
+        Node combinedNode = new Node('0',n1.freq+n2.freq);
+        combinedNode.left = n1;
+        combinedNode.right = n2;
+        root = combinedNode;
+        pq.add(root);
+    }
+    root = pq.poll();
+    ArrayList<String> finalCodes = new ArrayList<>();
+    preOrder(root,finalCodes,"");
+    return finalCodes;
+}
+
+public void preOrder(Node node,ArrayList<String> li,String s){
+    if(node==null){
+        return;
+    }
+    if(node.left==null && node.right==null && node.c!='0'){
+        li.add(s);
+        return;
+    }
+    preOrder(node.left,li,s+"0");
+    preOrder(node.right,li,s+"1");
+}

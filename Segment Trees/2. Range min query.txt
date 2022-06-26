@@ -1,0 +1,39 @@
+static int st[];
+
+public static int[] constructST(int arr[], int n)
+{
+    // Add your code here
+    st = new int[4*n];
+    build(arr,0,0,n-1);
+    return st;
+}
+static void build(int[] arr,int i,int l,int h){
+    if(l==h){
+        st[i]=arr[l];
+        return;
+    }
+    int mid= (l+h)/2;
+    build(arr,2*i+1,l,mid);
+    build(arr,2*i+2,mid+1,h);
+    st[i] = Math.min(st[2*i+1],st[2*i+2]);
+}
+
+static int getMin(int i,int ql,int qh,int low,int high){
+    if(ql>high || qh<low){
+        return Integer.MAX_VALUE;
+    }
+    if(low>=ql && high<=qh){
+        return st[i];
+    }
+    int mid= (low+high)/2;
+    int ans = Math.min(getMin(2*i+1,ql,qh,low,mid),getMin(2*i+2,ql,qh,mid+1,high));
+    return ans;
+}
+/* The functions returns the
+  min element in the range
+  from l and r */
+public static int RMQ(int st[], int n, int l, int r)
+{
+   // Add your code here
+   return getMin(0,l,r,0,n-1);
+}

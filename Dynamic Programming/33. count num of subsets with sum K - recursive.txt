@@ -1,0 +1,16 @@
+public int perfectSum(int arr[],int n, int sum) 
+{ 
+    // Your code goes here
+    return countSubsets(arr,sum,n-1);
+} 
+
+public int countSubsets(int[] arr,int sum,int index){
+    if(index<0){
+        return (sum==0)?1:0;
+    }
+    int ans = countSubsets(arr,sum,index-1);
+    if(sum>=arr[index]){
+        ans+=countSubsets(arr,sum-arr[index],index-1);
+    }
+    return ans;
+}

@@ -1,0 +1,34 @@
+static class Pair implements Comparator<Pair>{
+    int start,end;
+    Pair(int s,int e){
+        this.start=s;
+        this.end=e;
+    }
+    Pair(){
+        
+    }
+    @Override
+    public int compare(Pair p1,Pair p2){
+        return p1.end-p2.end;
+    }
+}
+public static int maxMeetings(int start[], int end[], int n)
+{
+    // add your code here
+    Pair[] arr = new Pair[n];
+    Pair temp;
+    for(int i=0;i<n;i++){
+        temp = new Pair(start[i],end[i]);
+        arr[i]=temp;
+    }
+    Arrays.sort(arr,new Pair());
+    int count=1;
+    Pair prev=arr[0];
+    for(int i=1;i<n;i++){
+        if(prev.end<arr[i].start){
+            prev = arr[i];
+            count++;
+        }
+    }
+    return count;
+}
