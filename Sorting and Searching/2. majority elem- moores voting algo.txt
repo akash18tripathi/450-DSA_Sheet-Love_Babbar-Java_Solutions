@@ -1,0 +1,29 @@
+int majorityElement(int arr[], int n)
+{
+        
+    // your code here
+    int count=1;
+    int maxIndex=0;
+    for(int i=1;i<n;i++){
+        if(arr[maxIndex]==arr[i]){
+            count++;
+        }else{
+            if(count==0){
+                count=1;
+                maxIndex=i;
+            }else{
+                count--;
+            }
+        }
+    }
+    count=0;
+    for(int i=0;i<n;i++){
+        if(arr[i]==arr[maxIndex]){
+            count++;
+        }
+    }
+    if(count>n/2){
+        return arr[maxIndex];
+    }
+    return -1;
+}

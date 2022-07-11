@@ -1,0 +1,24 @@
+public int cutRod(int price[], int n) {
+    //code here
+    int[][] dp = new int[n+1][n];
+    for(int i=0;i<n+1;i++){
+        Arrays.fill(dp[i],-1);
+    }
+    return util(n,n-1,price,dp);
+}
+
+public int util(int n,int index,int[] arr,int[][] dp){
+    if(index==0){
+        return dp[n][index]=n*arr[index];
+    }
+    if(dp[n][index]!=-1){
+        return dp[n][index];
+    }
+    int notcut = util(n,index-1,arr,dp);
+    int cut=Integer.MIN_VALUE;
+    int rodlen = index+1;
+    if(n-rodlen>=0){
+        cut = arr[index]+ util(n-rodlen,index,arr,dp);
+    }
+    return dp[n][index]=Math.max(cut,notcut);
+}

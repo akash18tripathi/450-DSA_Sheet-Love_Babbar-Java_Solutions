@@ -1,0 +1,25 @@
+typedef pair<int,pair<int,int>> ppi;
+    //Function to merge k sorted arrays.
+    vector<int> mergeKArrays(vector<vector<int>> arr, int K)
+    {
+        //code here
+        priority_queue<ppi,vector<ppi>,greater<ppi>> pq;
+        for(int i=0;i<K;i++){
+            pq.push({arr[i][0],{i,0}});
+        }
+        vector<int> ans;
+        while(!pq.empty()){
+            ppi p = pq.top();
+            pq.pop();
+            int elem=p.first;
+            int i=p.second.first;
+            int index=p.second.second;
+            ans.push_back(elem);
+            if(index+1<arr[i].size()){
+                pq.push({arr[i][index+1],{i,index+1}});
+            }else{
+                continue;
+            }
+        }
+        return ans;
+    }

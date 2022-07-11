@@ -1,0 +1,17 @@
+public int cutRod(int price[], int n) {
+    //code here
+    return util(n,n-1,price);
+}
+
+public int util(int n,int index,int[] arr){
+    if(index==0){
+        return n*arr[index];
+    }
+    int notcut = util(n,index-1,arr);
+    int cut=Integer.MIN_VALUE;
+    int rodlen = index+1;
+    if(n-rodlen>=0){
+        cut = arr[index]+ util(n-rodlen,index,arr);
+    }
+    return Math.max(cut,notcut);
+}

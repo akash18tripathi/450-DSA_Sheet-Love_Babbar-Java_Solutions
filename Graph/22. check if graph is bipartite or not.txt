@@ -1,0 +1,36 @@
+bool util(int V, vector<int>adj[],int src,vector<int>& color){
+    // Code here
+    queue<int> q;
+    q.push(src);
+    color[src]=1;
+    while(!q.empty()){
+        int e = q.front();
+        q.pop();
+        
+        for(int i: adj[e]){
+            if(color[i]==-1){
+                color[i]=1-color[e];
+                q.push(i);
+            }else{
+                if(color[i]==color[e]){
+                    return false;
+                }
+            }
+        }
+    }
+    
+    return true;
+    
+}
+bool isBipartite(int V, vector<int>adj[]){
+    // Code here
+    vector<int> color(V,-1);
+    for(int i=0;i<V;i++){
+        if(color[i]==-1){
+            if(!util(V,adj,i,color)){
+                return false;
+            }
+        }
+    }
+    return true;
+}

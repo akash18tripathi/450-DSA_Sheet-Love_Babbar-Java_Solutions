@@ -1,0 +1,30 @@
+static int preindex;
+    public static Node buildTree(int inorder[], int preorder[], int n)
+    {
+        Map<Integer,Integer> mp = new HashMap<>();
+        for(int i=0;i<n;i++){
+            mp.put(inorder[i],i);
+        }
+        preindex=0;
+        Node root = buildTreeUtil(inorder,preorder,0,n-1,n,mp);
+        return root;
+    }
+    public static Node buildTreeUtil(int inorder[], int preorder[],int strt,int end,int n,Map<Integer,Integer> mp){
+        if(strt>end){
+            return null;
+        }
+        
+        if(preindex>=n){
+            return null;
+        }
+        
+        Node temp = new Node(preorder[preindex++]);
+        if(strt==end){
+            return temp;
+        }
+        int index = mp.get(temp.data);
+        temp.left = buildTreeUtil(inorder,preorder,strt,index-1,n,mp);
+        temp.right = buildTreeUtil(inorder,preorder,index+1,end,n,mp);
+        return temp;
+        
+    }

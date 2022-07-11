@@ -1,0 +1,56 @@
+void dfs(vector<vector<int>> graph,int i,vector<bool>& visited){
+        visited[i]=true;
+        for(int e: graph[i]){
+            if(!visited[e]){
+                dfs(graph,e,visited);
+            }
+        }
+        return;
+    }
+    
+    void fill(vector<int> adj[],int i,vector<bool>& visited,stack<int>& st){
+        visited[i]=true;
+        
+        for(int e: adj[i]){
+            if(!visited[e]){
+                fill(adj,e,visited,st);
+            }
+        }
+        st.push(i);
+        return;
+    }
+	vector<vector<int>> getTranspose(vector<int> adj[],int V){
+        vector<vector<int>> g(V);
+        for(int i=0;i<V;i++){
+            for(int e: adj[i]){
+                g[e].push_back(i);
+            }
+        }
+        return g;
+    }
+    int kosaraju(int V, vector<int> adj[])
+    {
+        //code here
+        stack<int> st;
+        vector<bool> visited(V,false);
+        for(int i=0;i<V;i++){
+            if(!visited[i]){
+                fill(adj,i,visited,st);
+            }
+        }
+        vector<vector<int>> graph;
+        graph = getTranspose(adj,V);
+        for(int i=0;i<V;i++){
+            visited[i]=false;
+        }
+        int count=0;
+        while(!st.empty()){
+            int p = st.top();
+            st.pop();
+            if(!visited[p]){
+                count++;
+                dfs(graph,p,visited);
+            }
+        }
+        return count;
+    }

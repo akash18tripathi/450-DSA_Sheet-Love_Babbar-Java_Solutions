@@ -1,0 +1,30 @@
+int transfigure (String A, String B)
+{
+    if(A.length()!=B.length()){
+        return -1;
+    }
+    int n = A.length();
+	// Your code goes here.
+	int[] c1 = new int[256];
+	int[] c2 = new int[256];
+	for(int i=0;i<n;i++){
+	    c1[A.charAt(i)]++;
+	    c2[B.charAt(i)]++;
+	}
+	for(int i=0;i<256;i++){
+	    if(c1[i]!=c2[i]){
+	        return -1;
+	    }
+	}
+	int count=0,i=n-1,j=n-1;
+	while(i>=0 && j>=0){
+	    if(A.charAt(i)!=B.charAt(j)){
+	        count++;
+	        i--;
+	    }else{
+	        i--;
+	        j--;
+	    }
+	}
+	return count;
+}

@@ -1,0 +1,16 @@
+static int findTargetSumWays(int[] A , int N, int target) {
+    // code here
+    return util(A,N-1,target);
+}
+static int util(int[] arr,int index,int sum){
+    if(index<0){
+        if(sum==0){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+    int minus = util(arr,index-1,sum-arr[index]);
+    int plus = util(arr,index-1,sum+arr[index]);
+    return minus+plus;
+}
