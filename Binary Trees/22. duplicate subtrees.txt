@@ -1,0 +1,26 @@
+ArrayList<Node> ans;
+Map<String,Integer> st;
+public List<Node> printAllDups(Node root)
+{
+   //code here
+   ans = new ArrayList<>();
+   st = new HashMap<>();
+   inorder(root);
+   return ans;
+}
+public String inorder(Node root){
+    String s = "";
+    if(root==null){
+        return s+"$";
+    }
+    String left= inorder(root.left);
+    String right = inorder(root.right);
+    
+    s = left + root.data +  right;
+    
+    st.put(s,st.getOrDefault(s,0)+1);
+    if(st.get(s)==2){
+        ans.add(root);
+    }
+    return s;
+}

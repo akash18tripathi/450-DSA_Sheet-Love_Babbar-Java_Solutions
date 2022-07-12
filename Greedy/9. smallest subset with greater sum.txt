@@ -1,0 +1,17 @@
+int minSubset(vector<int> &Arr,int N){
+    long sum=0;
+    for(int i=0;i<N;i++){
+        sum+=Arr[i];
+    }
+    sort(Arr.begin(),Arr.end());
+    
+    long ans=0,s=0;
+    int i=N-1;
+    while(i>=0 && s<=sum){
+        s += Arr[i];
+        sum-= Arr[i];
+        i--;
+        ans++;
+    }
+    return ans;
+}

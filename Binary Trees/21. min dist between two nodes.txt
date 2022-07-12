@@ -1,0 +1,31 @@
+int findDist(Node root, int a, int b) {
+    // Your code here
+    Node l = lca(root,a,b);
+    int distA = finddist(l,a,0);
+    int distB = finddist(l,b,0);
+    return distA+distB;
+}
+
+int finddist(Node node,int a,int level){
+    if(node==null){
+        return 0;
+    }
+    if(node.data==a){
+        return level;
+    }
+    int left = finddist(node.left,a,level+1);
+    int right = finddist(node.right,a,level+1);
+    return Math.max(left,right);
+}
+
+Node lca(Node root,int a,int b){
+    if(root==null || root.data==a || root.data==b){
+        return root;
+    }
+    Node left = lca(root.left,a,b);
+    Node right = lca(root.right,a,b);
+    if(left!=null && right!=null){
+        return root;
+    }
+    return left!=null?left:right;
+}
