@@ -1,0 +1,34 @@
+vector<int> findOrder(int n, int m, vector<vector<int>> prerequisites) 
+{
+    //code here
+    vector<int> indegree(n,0);
+    vector<int> adj[n];
+    for(int i=0;i<m;i++){
+        adj[prerequisites[i][1]].push_back(prerequisites[i][0]);
+        indegree[prerequisites[i][0]]++;
+    }
+    queue<int> q;
+    for(int i=0;i<n;i++){
+        if(indegree[i]==0){
+            q.push(i);
+        }
+    }
+    int count=0;
+    vector<int> ans;
+    while(!q.empty()){
+        int node = q.front();
+        ans.push_back(node);
+        q.pop();
+        for(int e: adj[node]){
+            indegree[e]--;
+            if(indegree[e]==0){
+                q.push(e);
+            }
+        }
+    }
+    if(ans.size()==n){
+        return ans;
+    }
+    ans.clear();
+    return ans;
+}

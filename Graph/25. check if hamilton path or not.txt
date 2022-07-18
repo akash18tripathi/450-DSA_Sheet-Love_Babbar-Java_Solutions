@@ -1,0 +1,35 @@
+bool dfs(int node,unordered_set<int> &st,vector<bool> &visit,vector<vector<int>> adj,int V){
+    visit[node]=true;
+    st.insert(node);
+    if(st.size()==V){
+        return true;
+    }
+    for(int e: adj[node]){
+        if(!visit[e]){
+            if(dfs(e,st,visit,adj,V)){
+                return true;
+            }
+        }
+    }
+    st.erase(node);
+    visit[node]=false;
+    return false;
+}
+bool check(int N,int M,vector<vector<int>> Edges)
+{
+    // code here
+    vector<vector<int>> adj(N);
+    for(int i=0;i<M;i++){
+        adj[Edges[i][0]-1].push_back(Edges[i][1]-1);
+        adj[Edges[i][1]-1].push_back(Edges[i][0]-1);
+    }
+    unordered_set<int> st;
+    for(int i=0;i<N;i++){
+        vector<bool> visit(N,false);
+        if(dfs(i,st,visit,adj,N)){
+            return true;
+        }
+        st.clear();
+    }
+    return false;
+}

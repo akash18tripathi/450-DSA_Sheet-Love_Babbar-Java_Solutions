@@ -1,0 +1,33 @@
+int findParent(int a,int par[],int rank1[]){
+    if(par[a]==a){
+        return a;
+    }
+    return par[a]=findParent(par[a],par,rank1);
+}
+void union_( int a, int b, int par[], int rank1[]) 
+{
+    //code here
+    int pa = findParent(a,par,rank1);
+    int pb = findParent(b,par,rank1);
+    if(pa==pb){
+        return;
+    }
+    if(rank1[pa]>=rank1[pb]){
+        par[pb]=pa;
+        rank1[pa]++;
+    }else{
+        par[pa]=pb;
+        rank1[pb]++;
+    }
+}
+
+//Function to check whether 2 nodes are connected or not.
+bool isConnected(int x,int y, int par[], int rank1[])
+{
+    //code here
+    
+    if(findParent(x,par,rank1)==findParent(y,par,rank1)){
+        return true;
+    }
+    return false;
+}

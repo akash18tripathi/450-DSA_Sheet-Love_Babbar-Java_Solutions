@@ -1,0 +1,22 @@
+void inorder(Node* node,int &ans,int key){
+    if(node==NULL){
+        return;
+    }
+    if(key==node->data){
+        ans=key;
+        return;
+    }
+    if(node->data >key){
+        ans=node->data;
+        inorder(node->left,ans,key);
+    }else{
+        inorder(node->right,ans,key);
+    }
+}
+int findCeil(Node* root, int input) {
+    if (root == NULL) return -1;
+    // Your code here
+    int ans=0;
+    inorder(root,ans,input);
+    return ans;
+}

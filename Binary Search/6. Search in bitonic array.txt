@@ -1,0 +1,57 @@
+int incBinarySearch(vector<int> &A,int B,int l,int h){
+    int mid;
+    while(l<=h){
+        mid = l+ (h-l)/2;
+        if(A[mid]==B){
+            return mid;
+        }
+        if(A[mid]>B){
+            h=mid-1;
+        }else{
+            l=mid+1;
+        }
+    }
+    return -1;
+}
+int decBinarySearch(vector<int> &A,int B,int l,int h){
+    int mid;
+    while(l<=h){
+        mid = l+ (h-l)/2;
+        if(A[mid]==B){
+            return mid;
+        }
+        if(A[mid]>B){
+            l=mid+1;
+        }else{
+            h=mid-1;
+        }
+    }
+    return -1;
+}
+int findPivot(vector<int> &A,int B,int l,int h){
+    int mid,ans=0;
+    while(l<=h){
+        mid = l+(h-l)/2;
+        int toLeft = (mid-1>=0)?A[mid-1]:INT_MIN;
+        int toRight = (mid+1<h)?A[mid-1]:INT_MIN;
+        if(A[mid]>toLeft && A[mid]>toRight){
+            ans=mid;
+            break;
+        }
+        if(A[mid]>toLeft){
+            l=mid+1;
+        }else{
+            h=mid-1;
+        }
+    }
+    return ans;
+}
+int Solution::solve(vector<int> &A, int B) {
+    int pivot = findPivot(A,B,0,A.size()-1);
+    int temp = incBinarySearch(A,B,0,pivot);
+    if(temp!=-1){
+        return temp;
+    }
+    temp = decBinarySearch(A,B,pivot+1,A.size()-1);
+    return temp;
+}

@@ -1,0 +1,82 @@
+bool isValid(int m,int n,int i,int j){
+    if(i<0 || j<0 || i>=m || j>=n){
+        return false;
+    }
+    return true;
+}
+void markUnsafeStates(vector<vector<int>> &mat,int m,int n,int dir_x[],int dir_y[]){
+    int x,y;
+    for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            if(mat[i][j]==0){
+                for(int k=0;k<4;k++){
+                    x = i+dir_x[k];
+                    y = j+dir_y[k];
+                    if(isValid(m,n,x,y) && mat[x][y]==1){
+                        mat[x][y]=-1;
+                    }
+                }
+            }
+        }
+    }
+    
+    for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            if(mat[i][j]==-1){
+                mat[i][j]=0;
+            }
+        }
+    }
+    
+}
+int util(vector<vector<int>> &mat,int m,int n,vector<vector<int>> &dist){
+    int dir_x[] = {0,1,0,-1};
+    int dir_y[]={1,0,-1,0};
+    markUnsafeStates(mat,m,n,dir_x,dir_y);
+    queue<pair<int,int>> q;
+    for(int i=0;i<m;i++){
+        if(mat[i][0]==1){
+            q.push({i,0});
+            dist[i][0]=1;
+        }
+    }
+    int size,x,y,level=1;
+    
+    pair<int,int> p;
+    while(!q.empty()){
+        size = q.size();
+        level++;
+        for(int i=0;i<size;i++){
+            p = q.front();
+            q.pop();
+            for(int j=0;j<4;j++){
+                x = p.first + dir_x[j];
+                y = p.second + dir_y[j];
+                if(isValid(m,n,x,y) && mat[x][y]==1 && dist[x][y]==-1){
+                    q.push({x,y});
+                    dist[x][y]=level;
+                }
+            }
+        }
+    }
+    int minDist=INT_MAX;
+    for(int i=0;i<m;i++){
+        if(dist[i][n-1]!=-1){
+            minDist = min(minDist,dist[i][n-1]);
+        }
+        
+    }
+    return minDist;
+}
+int findShortestPath(vector<vector<int>> &mat)
+{
+   // code here
+   int m = mat.size();
+   int n = mat[0].size();
+   vector<vector<int>> dist(m,vector<int>(n,-1));
+   int ans = util(mat,m,n,dist);
+   if(ans==INT_MAX){
+       return -1;
+   }
+   return ans;
+}

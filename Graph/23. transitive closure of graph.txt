@@ -1,0 +1,21 @@
+void dfs(int n, vector<vector<int>> &graph,int node,vector<bool> &visit,vector<int> &v){
+    visit[node]=true;
+    v[node]=1;
+    for(int i=0;i<n;i++){
+        if(graph[node][i]==1 && !visit[i]){
+            dfs(n,graph,i,visit,v);
+        }
+    }
+}
+vector<vector<int>> transitiveClosure(int N, vector<vector<int>> graph)
+{
+    // code here
+    vector<vector<int>> ans;
+    for(int i=0;i<N;i++){
+        vector<int> v(N,0);
+        vector<bool> visit(N,false);
+        dfs(N,graph,i,visit,v);
+        ans.push_back(v);
+    }
+    return ans;
+}

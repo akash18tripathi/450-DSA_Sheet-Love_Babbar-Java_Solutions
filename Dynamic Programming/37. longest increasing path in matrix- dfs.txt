@@ -1,0 +1,32 @@
+int dfs(vector<vector<int>>& matrix,vector<vector<int>>& dp,int i,int j,int m,int n,int x[],int y[]){
+    if(dp[i][j]!=-1){
+        return dp[i][j];
+    }
+    int maximum=1;
+    for(int t=0;t<4;t++){
+        int a = i+x[t];
+        int b = j+y[t];
+        if(a<0 || b<0 || a>=m || b>=n || matrix[a][b]<=matrix[i][j]){
+            continue;
+        }
+        int len = 1+ dfs(matrix,dp,a,b,m,n,x,y);
+        maximum = max(maximum,len);
+    }
+    dp[i][j]=maximum;
+    return dp[i][j];
+}
+int solve(vector<vector<int>>& matrix) {
+    int m = matrix.size();
+    int n = matrix[0].size();
+    int maximum=1;
+    int x[] = {1,0,-1,0};
+    int y[] = {0,-1,0,1};
+    vector<vector<int>> dp(m,vector<int>(n,-1));
+    for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            int len = dfs(matrix,dp,i,j,m,n,x,y);
+            maximum = max(len,maximum);
+        }
+    }
+    return maximum;
+}
