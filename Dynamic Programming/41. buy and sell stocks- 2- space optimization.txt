@@ -1,0 +1,16 @@
+int maxProfit(vector<int>& prices) {
+    int n = prices.size();
+    int nextBuy=0,nextNotBuy=0,currBuy,currNotBuy;
+    for(int i=n-1;i>=0;i--){
+        for(int buy=0;buy<=1;buy++){
+            if(buy==1){
+                currBuy= max(-prices[i]+nextNotBuy , nextBuy);
+            }else{
+                currNotBuy = max(prices[i]+ nextBuy, nextNotBuy);
+            }
+        }
+        nextBuy = currBuy;
+        nextNotBuy=currNotBuy;
+    }
+    return nextBuy;   
+}

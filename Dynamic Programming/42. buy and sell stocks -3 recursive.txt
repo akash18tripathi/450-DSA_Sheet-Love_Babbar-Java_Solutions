@@ -1,0 +1,17 @@
+int buyAndSell(int index,int buy,int cap,vector<int> prices){
+    if(index==prices.size() || cap==0){
+        return 0;
+    }
+    if(buy==1){
+        int bought = -prices[index]+ buyAndSell(index+1,0,cap,prices);
+        int notBought = buyAndSell(index+1,1,cap,prices);
+        return max(bought,notBought);
+    }else{
+        int sell = prices[index] + buyAndSell(index+1,1,cap-1,prices);
+        int notSell = buyAndSell(index+1,0,cap,prices);
+        return max(sell,notSell);
+    }
+}
+int maxProfit(vector<int>& prices) {
+    return buyAndSell(0,1,2,prices);
+}

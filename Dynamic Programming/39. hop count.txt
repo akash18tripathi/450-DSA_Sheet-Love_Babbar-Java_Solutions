@@ -1,0 +1,18 @@
+int solve(vector<int>& nums0, vector<int>& nums1, int dist, int cost) {
+    int n= nums0.size();
+    vector<vector<int>> dp(n,vector<int>(2,INT_MAX));
+    dp[0][0]=nums0[0];
+    dp[0][1]=nums1[0];
+    for(int i=1;i<n;i++){
+        for(int j=i-dist;j<i;j++){
+            if(j>=0){
+                dp[i][0] = min(dp[i][0],nums0[i] + min(dp[j][0],cost+dp[j][1]));
+                dp[i][1] = min(dp[i][1],nums1[i] + min(dp[j][1],cost+dp[j][0]));
+            }
+        }
+
+    }
+    return min(dp[n-1][0],dp[n-1][1]);
+}
+
+// https://binarysearch.com/problems/Hop-Cost

@@ -1,0 +1,99 @@
+class Node{
+    public:
+
+    int val;
+    Node *left;
+    Node *right;
+
+    Node(int v){
+        val=v;
+    }
+};
+
+class CustomSet {
+    public:
+    Node *root;
+    CustomSet() {
+        root=NULL;
+    }
+    Node* insert(int val,Node* node){
+        if(node==NULL){
+            Node* n = new Node(val);
+            return n;
+        }
+        if(val > node->val){
+            node->right = insert(val,node->right);
+            return node;
+        }
+        node->left = insert(val,node->left);
+        return node;
+    }
+
+    void add(int val) {
+        if(root==NULL){
+            root = new Node(val);
+            return;
+        }
+        if(exists(val)){
+            return;
+        }
+        root = insert(val,root);
+    }
+
+    bool checkUtil(int val,Node* node){
+        if(node==NULL){
+            return false;
+        }
+        if(node->val==val){
+            return true;
+        }
+        if(val > node->val){
+            return checkUtil(val,node->right);
+        }
+        return checkUtil(val,node->left);
+    }
+    bool exists(int val) {
+        return checkUtil(val,root);
+    }
+    Node* minVal(Node* node){
+        Node* temp = node;
+        while(temp!=NULL && temp->left!=NULL){
+            temp= temp->left;
+        }
+        return temp;
+    }
+    Node* deleteNode(int val,Node* node){
+        if(node==NULL){
+            return NULL;
+        }
+        if(val< node->val){
+            node->left = deleteNode(val,node->left);
+        }else if(val > node->val){
+            node->right = deleteNode(val,node->right);
+        }else{
+            if(node->left==NULL && node->right==NULL){
+                return NULL;
+            }
+            if(node->left==NULL){
+                Node* temp = node->right;
+                free(node);
+                return temp;
+            }
+            if(node->right==NULL){
+                Node* temp = node->left;
+                free(node);
+                return temp;
+            }
+            Node* temp = minVal(node->right);
+            node->val = temp->val;
+            node->right = deleteNode(temp->val,node->right);
+        }
+        return node;
+    }
+    void remove(int val) {
+        if(!exists(val)){
+            return;
+        }
+        root = deleteNode(val,root);
+    }
+};

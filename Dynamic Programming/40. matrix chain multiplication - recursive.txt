@@ -1,0 +1,17 @@
+int mcm(int i,int j,int arr[]){
+    if(i==j){
+        return 0;
+    }
+    int steps=0,mini=INT_MAX;
+    for(int k=i;k<j;k++){
+        steps = arr[i-1]*arr[k]*arr[j] + mcm(i,k,arr)+mcm(k+1,j,arr);
+        mini = min(mini,steps);
+    }
+    return mini;
+}
+int matrixMultiplication(int N, int arr[])
+{
+    // code here
+    return mcm(1,N-1,arr);
+    
+}
